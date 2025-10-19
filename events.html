@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Events & Projects — COE Hybrid & Electric Vehicles | KPRIET</title>
+ <!-- Icons & Animation Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --blue-950:#00142f;
+      --blue-900:#001b44;
+      --blue-800:#002a66;
+      --blue-700:#003366;
+      --blue-650:#003d7a;
+      --blue-600:#004080;
+      --blue-500:#0066cc;
+      --blue-400:#3b82f6;
+      --saffron:#f4a100;     /* buttons */
+      --green:#20b15a;       /* hover */
+      --text:#101216;        /* black-ish */
+      --muted:#6b7280;       /* gray */
+      --bg:#f6fbff;          /* page bg */
+      --card:#ffffff;        /* card bg */
+      --chip:#eef6ff;        /* tag bg */
+      --shadow:0 14px 40px rgba(0,0,0,.12);
+      --shadow-sm:0 10px 22px rgba(0,0,0,.10);
+      --radius:16px;
+      --radius-sm:12px;
+      --radius-lg:22px;
+      --speed:2.2s;     
+  --brand:#007bff;
+  --brand-2:#2d7dff;
+  --brand-3:#66b2ff;
+  --accent:#ff6600;
+  --accent-2:#ff944d;
+  --ink:#1e2a38;
+  --muted:#5f6b7a;
+  --bg:#f6f8fc;
+  --panel:#ffffff;
+  --blue-700:#003366;
+  --green:#20b15a;
+  --orange:#ff7b00;
+  --shadow:0 10px 30px rgba(0,0,0,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;scroll-behavior:smooth;}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+h1.page-heading{font-size:2.2rem;font-weight:900;color:var(--accent);margin:20px 0;text-align:left;letter-spacing:.5px}
+
+/* ---------------------------------------
+       Header (two-row: logo+heading, then nav)
+    --------------------------------------- */
+    header {
+  position: sticky;
+  top: 0;
+
+  z-index: 50;
+ background: linear-gradient(90deg,#007bff,#0056b3);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+  backdrop-filter: saturate(1.2) blur(4px);
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* for logo + title + hamburger */
+  padding: 10px 16px;
+  background: var(--blue-700);   /* ✅ add this line */
+  color: #fff;                   /* ✅ text stays white */
+}
+.top-bar img {
+  height: 48px;
+  transition: transform .3s;
+}
+.top-bar img:hover {
+  transform: rotate(-4deg) scale(1.05);
+}
+.top-bar h1 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+/* Hamburger */
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+  display: none; /* hidden on desktop */
+}
+
+/* Nav */
+nav.nav {
+ background: linear-gradient(90deg,#007bff,#0056b3);
+}
+.nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  justify-content: center;
+}
+.nav a {
+  padding: 8px 2px;
+  color: #fff;
+  font-weight: 600;
+  position: relative;
+  text-decoration: none;
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 0;
+  background: var(--green);
+  transition: width .3s ease;
+}
+.nav a:hover {
+  color: #c8ffe5;
+}
+.nav a:hover::after {
+  width: 100%;
+}
+.nav a.active {
+  color: #a6e3ff;
+}
+
+/* ===== Responsive Styles ===== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    display: none; /* hidden by default */
+  }
+
+  .nav ul.open {
+    display: flex;
+    animation: fadeIn .3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+}
+/* ==========================================================
+       2) SOCIAL RAIL (fixed right, no gap)
+    =========================================================== */
+    .social-rail{
+      
+      position:fixed;right:0;top:50%;transform:translateY(-50%);
+      display:flex;flex-direction:column;gap:0;z-index:950;
+      border-radius:10px 0 0 10px;overflow:hidden;box-shadow:var(--shadow);
+    }
+    .soc{
+      width:46px;height:46px;display:grid;place-items:center;
+      background:orange;transition:.25s;border-left:2px solid transparent
+    }
+    .soc:hover{transform:scale(1.05);filter:saturate(1.12)}
+    .soc.instagram{color:#e1306c}
+    .soc.facebook{color:#1877f2}
+    .soc.twitter{color:#1da1f2}
+    .soc.whatsapp{color:#25d366}
+    .soc.query{color:#004080}
+    .soc + .soc{border-top:1px solid #eaeef4}
+
+/* Calendar */
+.calendar{background:#fff;border-radius:16px;padding:18px;box-shadow:var(--shadow);margin-top:20px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;border-radius:12px;padding:10px 20px;font-weight:800;font-size:1.1rem;box-shadow:0 6px 16px rgba(0,0,0,.1)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px}
+.cal-w{text-align:center;font-weight:800;color:var(--muted)}
+#calDays{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal-day{height:46px;display:flex;align-items:center;justify-content:center;border-radius:8px;cursor:pointer;font-size:.9rem;background:#f1f4fa;transition:.3s}
+.cal-day:hover{background:var(--brand-3);color:#fff;transform:scale(1.05)}
+.cal-day.event{background:#fff;color:var(--brand);font-weight:800;border:2px solid var(--accent);position:relative}
+.cal-day.event::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);position:absolute;bottom:6px}
+.cal-day.today{background:var(--brand-2);color:#fff;font-weight:900}
+
+/* Event Cards */
+.events-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px;margin-top:28px}
+.event-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.08);display:flex;flex-direction:column;transition:.4s;position:relative;animation:fadeUp .9s ease}
+.event-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 12px 28px rgba(0,123,255,.25)}
+.event-img{height:280px;overflow:hidden}
+.event-img img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.event-card:hover img{transform:scale(1.08)}
+.event-body{padding:16px;flex:1}
+.event-date{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;padding:6px 12px;border-radius:999px;font-size:.8rem;position:absolute;top:12px;left:12px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.event-title{font-size:1.3rem;color:var(--brand);margin:8px 0;font-weight:800}
+.event-meta{font-size:.9rem;color:var(--muted);margin-bottom:10px;font-weight:bold}
+.event-desc{font-size:.95rem;color:var(--ink);margin-bottom:10px;font-weight:500}
+.event-list{list-style:none;padding:0;margin:0}
+.event-list li{display:flex;gap:8px;padding:4px 0;font-size:.9rem;font-weight:600}
+.event-list li i{color:var(--accent)}
+
+/* Projects */
+.projects-section{margin-top:50px}
+.projects-section h2{font-size:2rem;font-weight:900;color:var(--brand);margin-bottom:24px;text-align:center}
+.project-card{display:flex;align-items:center;gap:30px;margin-bottom:40px;background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden;animation:slideIn 1s ease}
+.project-text{flex:1;padding:20px}
+.project-text h3{font-size:1.3rem;color:var(--blue-700);margin-bottom:10px;font-weight:800}
+.project-text p{font-size:.95rem;color:var(--ink);margin-bottom:10px}
+.project-text .status{display:inline-block;padding:6px 12px;border-radius:999px;font-size:.8rem;font-weight:700;margin-bottom:10px}
+.project-text .completed{background:var(--green);color:#fff}
+.project-text .inprogress{background:var(--orange);color:#fff}
+.project-img{flex:1}
+.project-img img{width:100%;height:280px;object-fit:cover}
+.project-card:nth-child(even){flex-direction:row-reverse}
+
+
+
+/* Project Animations */
+@keyframes slideInLeft {
+  from {opacity:0; transform:translateX(-80px);}
+  to {opacity:1; transform:translateX(0);}
+}
+@keyframes slideInRight {
+  from {opacity:0; transform:translateX(80px);}
+  to {opacity:1; transform:translateX(0);}
+}
+
+.project-card {
+  opacity:0; /* hidden before animation */
+  transform:translateY(40px);
+}
+
+.project-card.show-left {
+  animation: slideInLeft 1s ease forwards;
+}
+.project-card.show-right {
+  animation: slideInRight 1s ease forwards;
+}
+
+/* Animations */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+
+/* ==========================================================
+       15) FOOTER
+    =========================================================== */
+    footer{background:var(--blue-700);color:#fff;padding:30px 0 14px;margin-top:30px}
+    .foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+    .foot h5{margin-bottom:10px}
+    .foot a{text-decoration: none; color:#d6ecff}
+    .copyright{text-align:center;padding-top:14px;color:#d7ebff;border-top:1px solid rgba(255,255,255,.15);margin-top:16px}
+    @media (max-width:920px){.foot{grid-template-columns:1fr}}
+
+    /* ==========================================================
+       16) POPUPS (Register & Quick Query)
+    =========================================================== */
+    .popup{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1200}
+    .popup.open{display:flex}
+    .popup-content{background:#fff;width:min(640px,92vw);border-radius:16px;box-shadow:var(--shadow);position:relative;padding:14px;animation:scaleIn .35s ease}
+    .close-btn{position:absolute;top:10px;right:12px;font-size:22px;color:#333;cursor:pointer}
+    iframe.form-frame{width:100%;height:560px;border:0;border-radius:12px}
+    @keyframes scaleIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1;}}
+
+    /* ==========================================================
+       17) UTILITIES & EFFECT HELPERS
+    =========================================================== */
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+    .mt-6{margin-top:6px}.mt-10{margin-top:10px}.mt-14{margin-top:14px}.mt-18{margin-top:18px}.mt-24{margin-top:24px}.mt-30{margin-top:30px}.mt-40{margin-top:40px}
+    .float-y{animation:floatY var(--speed) ease-in-out infinite}
+    .observe{opacity:0;transform:translateY(16px)}
+    .observe.show{opacity:1;transform:none;transition:all var(--speed) cubic-bezier(.2,.8,.2,1)}
+    .back-to-top{
+      position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;
+      display:grid;place-items:center;border:0;background:var(--saffron);color:#fff;
+      box-shadow:var(--shadow);cursor:pointer;z-index:940;opacity:0;pointer-events:none;transition:.25s
+    }
+    .back-to-top.show{opacity:1;pointer-events:auto}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,#cfe3ff,transparent);margin:18px 0}
+  
+/* Show all button */
+#showAllBtn{display:none;margin:20px auto;padding:10px 18px;background:var(--brand);color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;transition:.3s}
+#showAllBtn:hover{background:var(--brand-2)}
+.top-bar h1 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+</style>
+</head>
+<body>
+  <!-- ========================================================
+       SOCIAL RAIL (fixed, right-center, no gap)
+  ========================================================= -->
+  <div class="social-rail" aria-label="Quick Links">
+    <a class="" href="registration-form.html" title="" aria-label="Instagram"><i class="">Apply</i></a>
+    <a class="soc instagram" href="#" title="Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a class="soc facebook" href="#" title="Facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a class="soc twitter" href="#" title="Twitter/X" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+    <a class="soc whatsapp" href="#" title="WhatsApp Community" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <button class="soc query" id="openQuery" title="Quick Query" aria-label="Quick Query"><i class="fa-regular fa-envelope"></i></button>
+  </div>
+<!-- ===================================== -->
+  <!-- Header (two rows)                     -->
+  <!-- ===================================== -->
+  <header>
+  <div class="top-bar">
+    <img src="assets/logo.png" alt="Logo" />
+    <h1 style="font-size: 1.1rem;">Centre of Excellence — Hybrid & Electric Vehicles (KPRIET) </h1>
+
+    <!-- Hamburger Button -->
+    <button class="menu-toggle" aria-label="Toggle Menu">
+      ☰
+    </button>
+  </div>
+
+  <nav class="nav">
+    <ul style="font-size: 1.1rem;">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="courses.html" class="nav-link">Courses</a></li>
+      <li><a href="events.html" class="nav-link">Events</a></li>
+      <!-- <li><a href="gallery.html" class="nav-link">Gallery</a></li> -->
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="container">
+  <h1 class="page-heading">Events & Projects</h1>
+
+  <!-- Event Cards -->
+  <section id="eventsSection" class="events-list">
+    <article id="evt-2025-03-14" class="event-card">
+      <div class="event-img"><img src="https://picsum.photos/600/400?random=11" alt="IdeaSprint"/></div>
+      <span class="event-date">Mar 14, 2025</span>
+      <div class="event-body">
+        <h3 class="event-title"><i class="fa-solid fa-lightbulb"></i> IdeaSprint — FIESTTA'25</h3>
+        <p class="event-meta"><i class="fa-solid fa-person-chalkboard"></i> <b>Mode:</b> Offline | <i class="fa-solid fa-location-dot"></i> <b>Venue:</b> CoE HEV, KPRIET</p>
+        <p class="event-desc"><b>Rapid ideation</b> on domain problems with presentations and jury evaluation.</p>
+        <ul class="event-list">
+          <li><i class="fa-regular fa-clock"></i> 9 AM–1 PM ideation; 1–3 PM presentations.</li>
+          <li><i class="fa-solid fa-star"></i> Judged on creativity, feasibility, relevance.</li>
+          <li><i class="fa-solid fa-users"></i> Encouraged team innovation and cross-domain thinking.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article id="evt-2025-04-18" class="event-card">
+      <div class="event-img"><img src="https://picsum.photos/600/400?random=12" alt="Webinar"/></div>
+      <span class="event-date">Apr 18, 2025</span>
+      <div class="event-body">
+        <h3 class="event-title"><i class="fa-solid fa-laptop"></i> Webinar — IMI Empowers Automotive Professionals</h3>
+        <p class="event-meta"><i class="fa-solid fa-wifi"></i> <b>Mode:</b> Online | <i class="fa-regular fa-clock"></i> <b>Time:</b> 7–8 PM | <i class="fa-solid fa-user-group"></i> <b>Participants:</b> 40</p>
+        <p class="event-desc">An engaging webinar to showcase <b>IMI standards, career pathways, and global recognition.</b></p>
+        <ul class="event-list">
+          <li><i class="fa-solid fa-user-tie"></i> Speaker: Dr. Arpit Anil Panwar.</li>
+          <li><i class="fa-solid fa-book-open"></i> Covers: IMI programs, standards, pathways.</li>
+          <li><i class="fa-solid fa-comments"></i> Interactive Q&amp;A with participants.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article id="evt-2025-06-02" class="event-card">
+      <div class="event-img"><img src="https://picsum.photos/600/400?random=13" alt="Workshop"/></div>
+      <span class="event-date">Jun 2, 2025</span>
+      <div class="event-body">
+        <h3 class="event-title"><i class="fa-solid fa-car"></i> Vehicle Dynamics Workshop</h3>
+        <p class="event-meta"><i class="fa-solid fa-hand-sparkles"></i> Hands-on | <i class="fa-solid fa-location-dot"></i> Venue: Dynamics Lab</p>
+        <p class="event-desc">Immersive workshop focusing on <b>EV chassis, suspension and weight transfer testing.</b></p>
+        <ul class="event-list">
+          <li><i class="fa-solid fa-cogs"></i> Testing suspension geometry.</li>
+          <li><i class="fa-solid fa-weight-hanging"></i> Weight transfer & chassis setup.</li>
+          <li><i class="fa-solid fa-bolt"></i> Practical EV conversion session.</li>
+        </ul>
+      </div>
+    </article>
+  </section>
+
+  <button id="showAllBtn">Show All Events</button>
+
+  <!-- Calendar -->
+  <section style="margin-top:28px">
+    <p><b>Explore our upcoming and past events.</b> Click a date on the calendar to view event details.</p>
+    <div class="calendar">
+      <div class="cal-head">
+        <button id="calPrev" style="border:0;background:none;color:#fff;font-size:1.3rem;cursor:pointer">‹</button>
+        <div id="calTitle"></div>
+        <button id="calNext" style="border:0;background:none;color:#fff;font-size:1.3rem;cursor:pointer">›</button>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-w">Sun</div><div class="cal-w">Mon</div><div class="cal-w">Tue</div><div class="cal-w">Wed</div><div class="cal-w">Thu</div><div class="cal-w">Fri</div><div class="cal-w">Sat</div>
+      </div>
+      <div id="calDays"></div>
+      <small style="color:var(--muted);margin-top:8px;display:block">• Orange border = Event</small>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="projects-section">
+    <h2>Projects</h2>
+
+    <div class="project-card">
+      <div class="project-text">
+        <span class="status completed"><i class="fa-solid fa-check"></i> Completed</span>
+        <h3><i class="fa-solid fa-industry"></i> ABB Global Industries and Services Ltd</h3>
+        <p><i class="fa-solid fa-file-lines"></i> Performance Evaluation of Cabinet Cooling under Dual Convection Modes through CFD Simulation</p>
+        <p><i class="fa-regular fa-calendar"></i> Nov–Dec 2024</p>
+      </div>
+      <div class="project-img">
+        <img src="https://picsum.photos/seed/abb/400/300" alt="ABB Project"/>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-text">
+        <span class="status completed"><i class="fa-solid fa-check"></i> Completed</span>
+        <h3><i class="fa-solid fa-car-side"></i> Ozotec EV</h3>
+        <p><i class="fa-solid fa-pen-ruler"></i> Technical Drafting and Documentation of Display Cluster Components for Fila Series Electric Scooters</p>
+        <p><i class="fa-regular fa-calendar"></i> Feb–Mar 2025</p>
+      </div>
+      <div class="project-img">
+        <img src="https://picsum.photos/seed/ozotec/400/300" alt="Ozotec Project"/>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-text">
+        <span class="status inprogress"><i class="fa-solid fa-spinner"></i> In Progress</span>
+        <h3><i class="fa-solid fa-flask"></i> Peps Industries Pvt. Ltd</h3>
+        <p><i class="fa-solid fa-gears"></i> Development of a Multi-Functional Quality Evaluation System for Polyurethane Foam</p>
+        <p><i class="fa-regular fa-calendar"></i> Apr 2025–</p>
+      </div>
+      <div class="project-img">
+        <img src="https://picsum.photos/seed/peps/400/300" alt="Peps Project"/>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-text">
+        <span class="status inprogress"><i class="fa-solid fa-spinner"></i> In Progress</span>
+        <h3><i class="fa-solid fa-robot"></i> Electra EV</h3>
+        <p><i class="fa-solid fa-microchip"></i> Development and Implementation of SCARA Robot for Automated Glue Dispensing at Battery Assembly Sub-Station</p>
+        <p><i class="fa-regular fa-calendar"></i> Jan 2025–</p>
+      </div>
+      <div class="project-img">
+        <img src="https://picsum.photos/seed/electra/400/300" alt="Electra Project"/>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========================================================
+       FOOTER
+  ========================================================= -->
+  <footer id="contact">
+    <div class="container foot">
+      <div>
+        <h5>Centre of Excellence — Hybrid & Electric Vehicles</h5>
+        <p class="mt-6">KPR Institute of Engineering and Technology (KPRIET)</p>
+        <p class="muted mt-6">Email: <a href="mailto:coehev@kpriet.ac.in">coehev@kpriet.ac.in</a></p>
+        <p class="muted">Phone: +91 422 263 5600 (Ext. 675)</p>
+        <p class="muted mt-6">Address: KPRIET, Coimbatore, Tamil Nadu, India</p>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <p class="mt-6"><a href="#courses">Courses</a></p>
+        <p><a href="#offers">What We Offer</a></p>
+        <p><a href="#visit">Book a Visit</a></p>
+        <p><a href="about.html">About</a></p>
+      </div>
+      <div>
+        <h5>Policies</h5>
+        <p class="mt-6"><a href="#">Privacy Policy</a></p>
+        <p><a href="#">Terms of Use</a></p>
+        <p><a href="#">Accessibility</a></p>
+      </div>
+    </div>
+    <div class="container copyright">© 2025 COE — Hybrid & Electric Vehicles, KPRIET</div>
+  </footer>
+<!-- ========================================================
+       BACK TO TOP
+  ========================================================= -->
+  <button class="back-to-top" id="toTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+
+<script>
+  
+// Calendar setup
+const calTitle=document.getElementById('calTitle')
+const calDays=document.getElementById('calDays')
+const events={'2025-03-14':'evt-2025-03-14','2025-04-18':'evt-2025-04-18','2025-06-02':'evt-2025-06-02'}
+let today=new Date(),currentMonth=today.getMonth(),currentYear=today.getFullYear()
+
+const showAllBtn=document.getElementById('showAllBtn')
+const eventCards=document.querySelectorAll('.event-card')
+
+function renderCalendar(month,year){
+  calDays.innerHTML=''
+  let firstDay=new Date(year,month).getDay()
+  let daysInMonth=new Date(year,month+1,0).getDate()
+  calTitle.textContent=new Date(year,month).toLocaleString('default',{month:'long',year:'numeric'})
+  for(let i=0;i<firstDay;i++){calDays.innerHTML+="<div></div>"}
+  for(let d=1;d<=daysInMonth;d++){
+    let dateStr=`${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`
+    let div=document.createElement('div')
+    div.classList.add('cal-day')
+    if(dateStr in events){div.classList.add('event')}
+    if(year===today.getFullYear()&&month===today.getMonth()&&d===today.getDate()){div.classList.add('today')}
+    div.textContent=d
+
+    // ✅ On click filter events
+    div.onclick=()=>{
+      if(events[dateStr]){
+        // hide all
+        eventCards.forEach(c=>c.style.display='none')
+        // show only the selected
+        const selected=document.getElementById(events[dateStr])
+        selected.style.display='flex'
+        selected.scrollIntoView({behavior:'smooth',block:'center'})
+        // show the button
+        showAllBtn.style.display='block'
+      }
+    }
+
+    calDays.appendChild(div)
+  }
+}
+
+// Show All button resets
+showAllBtn.onclick=()=>{
+  eventCards.forEach(c=>c.style.display='flex')
+  showAllBtn.style.display='none'
+}
+
+document.getElementById('calPrev').onclick=()=>{currentMonth--;if(currentMonth<0){currentMonth=11;currentYear--}renderCalendar(currentMonth,currentYear)}
+document.getElementById('calNext').onclick=()=>{currentMonth++;if(currentMonth>11){currentMonth=0;currentYear++}renderCalendar(currentMonth,currentYear)}
+renderCalendar(currentMonth,currentYear)
+
+
+
+
+// Animate projects on scroll (trigger every time)
+const projectCards = document.querySelectorAll('.project-card');
+
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add(
+        entry.target.dataset.side === "left" ? "show-left" : "show-right"
+      );
+    } else {
+      // remove class so animation can replay when it re-enters
+      entry.target.classList.remove("show-left","show-right");
+    }
+  });
+},{threshold:0.2});
+
+projectCards.forEach((card,i)=>{
+  // odd = left, even = right
+  card.dataset.side = (i % 2 === 0) ? "left" : "right";
+  observer.observe(card);
+});
+// ----------------------------------------------
+    // Back-to-top
+    // ----------------------------------------------
+    const toTop = document.getElementById('toTop');
+    const topObs = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ toTop.classList.remove('show'); }
+        else { toTop.classList.add('show'); }
+      })
+    },{rootMargin:'-120px 0px 0px 0px'});
+    topObs.observe(document.querySelector('#top') || document.body);
+    toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+
+</script>
+
+</body>
+</html>

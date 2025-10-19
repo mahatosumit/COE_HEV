@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — COE Hybrid & Electric Vehicles | KPRIET</title>
+
+  <!-- Icons & Animation Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    /* ---------------------------------------
+       Core Theme (palette & resets)
+    --------------------------------------- */
+    :root{
+      --blue-950:#00142f;
+      --blue-900:#001b44;
+      --blue-800:#002a66;
+      --blue-700:#003366;
+      --blue-650:#003d7a;
+      --blue-600:#004080;
+      --blue-500:#0066cc;
+      --blue-400:#3b82f6;
+      --saffron:#f4a100;     /* buttons */
+      --green:#20b15a;       /* hover */
+      --text:#101216;        /* black-ish */
+      --muted:#6b7280;       /* gray */
+      --bg:#f6fbff;          /* page bg */
+      --card:#ffffff;        /* card bg */
+      --chip:#eef6ff;        /* tag bg */
+      --shadow:0 14px 40px rgba(0,0,0,.12);
+      --shadow-sm:0 10px 22px rgba(0,0,0,.10);
+      --radius:16px;
+      --radius-sm:12px;
+      --radius-lg:22px;
+      --speed:2.2s; 
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg); color:var(--text); line-height:1.6; 
+      overflow-x:hidden;
+    }
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    video{max-width:100%;display:block;border-radius:16px}
+
+    /* ---------------------------------------
+       Header (two-row: logo+heading, then nav)
+    --------------------------------------- */
+    header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+ background: linear-gradient(90deg,#007bff,#0056b3);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+  backdrop-filter: saturate(1.2) blur(4px);
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* for logo + title + hamburger */
+  padding: 10px 16px;
+  background: var(--blue-700);   /* ✅ add this line */
+  color: #fff;                   /* ✅ text stays white */
+}
+.top-bar img {
+  height: 48px;
+  transition: transform .3s;
+}
+.top-bar img:hover {
+  transform: rotate(-4deg) scale(1.05);
+}
+.top-bar h1 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+/* Hamburger */
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+  display: none; /* hidden on desktop */
+}
+
+/* Nav */
+nav.nav {
+ background: linear-gradient(90deg,#007bff,#0056b3);
+}
+.nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  justify-content: center;
+}
+.nav a {
+  padding: 8px 2px;
+  color: #fff;
+  font-weight: 600;
+  position: relative;
+  text-decoration: none;
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 0;
+  background: var(--green);
+  transition: width .3s ease;
+}
+.nav a:hover {
+  color: #c8ffe5;
+}
+.nav a:hover::after {
+  width: 100%;
+}
+.nav a.active {
+  color: #a6e3ff;
+}
+
+/* ===== Responsive Styles ===== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    display: none; /* hidden by default */
+  }
+
+  .nav ul.open {
+    display: flex;
+    animation: fadeIn .3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+}
+/* ==========================================================
+       2) SOCIAL RAIL (fixed right, no gap)
+    =========================================================== */
+    .social-rail{
+      
+      position:fixed;right:0;top:50%;transform:translateY(-50%);
+      display:flex;flex-direction:column;gap:0;z-index:950;
+      border-radius:10px 0 0 10px;overflow:hidden;box-shadow:var(--shadow);
+    }
+    .soc{
+      width:46px;height:46px;display:grid;place-items:center;
+      background:orange;transition:.25s;border-left:2px solid transparent
+    }
+    .soc:hover{transform:scale(1.05);filter:saturate(1.12)}
+    .soc.instagram{color:#e1306c}
+    .soc.facebook{color:#1877f2}
+    .soc.twitter{color:#1da1f2}
+    .soc.whatsapp{color:#25d366}
+    .soc.query{color:#004080}
+    .soc + .soc{border-top:1px solid #eaeef4}
+
+    /* ---------------------------------------
+       Hero / Page Title
+    --------------------------------------- */
+    .hero{
+      background:linear-gradient(120deg,var(--blue-600),var(--blue-500));
+      color:#fff; padding:90px 16px 60px; position:relative; overflow:hidden;
+    }
+    .hero .container{max-width:1150px;margin:0 auto;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
+    .orb{position:absolute;filter:blur(50px);opacity:.25;pointer-events:none}
+    .orb.one{width:360px;height:360px;background:#42d392;border-radius:50%;top:-60px;left:-60px}
+    .orb.two{width:420px;height:420px;background:#f9b24e;border-radius:50%;bottom:-120px;right:-80px}
+    .hero h2{font-size:2.2rem;line-height:1.2;margin-bottom:14px}
+    .hero p{opacity:.95}
+    .hero .cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;background:var(--saffron);color:#fff;border:none;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:var(--shadow);transition:.25s}
+    .btn:hover{background:var(--green);transform:translateY(-2px)}
+    .btn-outline{background:transparent;border:2px solid rgba(255,255,255,.6)}
+    .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+    .hero-media{border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transform:translateZ(0)}
+
+    /* ---------------------------------------
+       Section Helpers
+    --------------------------------------- */
+    .section{padding:70px 16px}
+    .container{max-width:1150px;margin:0 auto}
+    .section-title{font-size:1.9rem;color:var(--blue-900);text-align:center;margin-bottom:10px}
+    .section-kicker{text-align:center;color:var(--muted);margin-bottom:28px}
+
+    /* ---------------------------------------
+       Section: About Us (overview)
+    --------------------------------------- */
+    .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+    .about-card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:24px}
+    .icon-pill{display:inline-flex;align-items:center;gap:8px;background:#e8f5ff;color:var(--blue-600);padding:6px 10px;border-radius:999px;font-weight:700;font-size:.85rem}
+    .about-points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+    .tick{display:flex;align-items:flex-start;gap:10px}
+    .tick i{color:var(--green);margin-top:3px}
+
+    /* ---------------------------------------
+       Mission / Vision — Institute, Dept, COE (Tabs per card)
+    --------------------------------------- */
+    .mv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .mv-card{background:var(--card);border-radius:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+    .mv-media{position:relative}
+    .mv-media img{height:180px;object-fit:cover;width:100%}
+    .mv-tabs{display:flex;border-bottom:1px solid #eef1f7}
+    .mv-tab{flex:1;text-align:center;padding:10px 8px;font-weight:700;cursor:pointer}
+    .mv-tab.active{color:#fff;background:linear-gradient(90deg,var(--blue-600),var(--blue-500))}
+    .mv-body{padding:16px 18px}
+    .mv-body p{color:#1f2937}
+
+    /* ---------------------------------------
+       Leadership Roller (marquee with pause & focus)
+    --------------------------------------- */
+    .roller-wrap {
+  background:#e8f5e9;
+  border-top:1px dashed #b7e4c7;
+  border-bottom:1px dashed #b7e4c7;
+}
+.roller {
+  overflow:hidden;
+  white-space:nowrap;
+  position:relative;
+}
+.roller-track {
+  display:inline-flex;
+  gap:26px;
+  animation:scroll 90s linear infinite;
+  /* start immediately visible */
+  transform: translateX(0);
+}
+.roller:hover .roller-track {
+  animation-play-state:paused;
+}
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); } /* scroll only half the track width for seamless loop */
+}
+.leader {
+  background:#fff;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:12px 16px;
+  min-width:340px;
+}
+.leader img {
+  width:72px;
+  height:72px;
+  border-radius:50%;
+  object-fit:cover;
+}
+.leader small {
+  color:var(--muted);
+}
+
+
+    /* ---------------------------------------
+       Deep About (story blocks with timeline dots)
+    --------------------------------------- */
+    .story{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .story .block{background:var(--card);border-radius:16px;box-shadow:var(--shadow);padding:20px;position:relative;overflow:hidden}
+    .block::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(var(--blue-600),var(--blue-500))}
+    .block h4{margin-bottom:6px;color:var(--blue-900)}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+    .metric{background:#f1f5f9;border-radius:12px;padding:12px;text-align:center}
+    .metric h3{color:var(--blue-600)}
+
+    /* ---------------------------------------
+       Highlights (news/events) with accordion & timeline
+    --------------------------------------- */
+    .highlights{background:linear-gradient(90deg,#004d66,#0075a8);color:#fff}
+    .timeline{max-width:960px;margin:0 auto}
+    .item{background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;margin:12px 0;box-shadow:0 10px 25px rgba(0,0,0,.15)}
+    .item-header{display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer}
+    .item-header h4{font-size:1.05rem}
+    .pill{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.25);padding:4px 10px;border-radius:999px;font-size:.8rem}
+    .item-body{display:none;padding-top:10px;color:#eaf6ff}
+
+    /* ---------------------------------------
+       Team & Labs — filterable grid and lab carousel
+    --------------------------------------- */
+    .filters{display:flex;gap:10px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+    .chip{padding:8px 12px;border-radius:999px;border:1px solid #e5e7eb;cursor:pointer;font-weight:700;background:#fff}
+    .chip.active,.chip:hover{background:var(--green);color:#fff;border-color:var(--green)}
+
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .card{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:16px;text-align:center;transition:.25s}
+    .card:hover{transform:translateY(-6px)}
+    .card img{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 10px}
+    .role{color:var(--muted);font-size:.9rem}
+
+    .labs{margin-top:28px}
+    .lab-track{display:flex;gap:16px;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+    .lab{min-width:300px;border-radius:14px;overflow:hidden;scroll-snap-align:center;background:#fff;box-shadow:var(--shadow)}
+    .lab .caption{padding:10px 12px}
+
+    /* ---------------------------------------
+       Footer
+    --------------------------------------- */
+    footer{background:var(--blue-700);color:#fff;padding:28px;text-align:center;margin-top:40px}
+    footer a{color:#c8e9ff}
+
+    /* ---------------------------------------
+       Utilities & Responsiveness
+    --------------------------------------- */
+    .muted{color:var(--muted)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-18{margin-top:18px}.mt-24{margin-top:24px}
+    .center{text-align:center}
+    .hidden{display:none}
+
+    @media (max-width:1024px){
+      .hero .container{grid-template-columns:1fr}
+      .about-grid{grid-template-columns:1fr}
+      .mv-grid{grid-template-columns:1fr 1fr}
+      .team-grid{grid-template-columns:repeat(3,1fr)}
+      .story{grid-template-columns:1fr}
+    }
+    @media (max-width:720px){
+      .mv-grid{grid-template-columns:1fr}
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+      .hero h2{font-size:1.8rem}
+    }
+    @media (max-width:480px){
+      .team-grid{grid-template-columns:1fr}
+      .btn{width:100%;justify-content:center}
+    }
+/* ==========================================================
+       15) FOOTER
+    =========================================================== */
+    footer{background:var(--blue-700);color:#fff;padding:30px 0 14px;margin-top:30px}
+    .foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+    .foot h5{margin-bottom:10px}
+    .foot a{color:#d6ecff}
+    .copyright{text-align:center;padding-top:14px;color:#d7ebff;border-top:1px solid rgba(255,255,255,.15);margin-top:16px}
+    @media (max-width:920px){.foot{grid-template-columns:1fr}}
+    /* ---------------------------------------
+       Keyframe extras (subtle float / pulse)
+    --------------------------------------- */
+    .float-y{animation:floatY 3.2s ease-in-out infinite}
+    @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    .pulse-ring{position:relative}
+    .pulse-ring::after{content:"";position:absolute;inset:-6px;border:2px solid rgba(32,177,90,.35);border-radius:16px;animation:pulse 2.4s infinite}
+    @keyframes pulse{0%{opacity:0;transform:scale(.95)}50%{opacity:1}100%{opacity:0;transform:scale(1.1)}}
+  
+   .muted{color:var(--muted)}
+    .center{text-align:center}
+    .mt-6{margin-top:6px}.mt-10{margin-top:10px}.mt-14{margin-top:14px}.mt-18{margin-top:18px}.mt-24{margin-top:24px}.mt-30{margin-top:30px}.mt-40{margin-top:40px}
+    .float-y{animation:floatY var(--speed) ease-in-out infinite}
+    .observe{opacity:0;transform:translateY(16px)}
+    .observe.show{opacity:1;transform:none;transition:all var(--speed) cubic-bezier(.2,.8,.2,1)}
+    .back-to-top{
+      position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;
+      display:grid;place-items:center;border:0;background:var(--saffron);color:#fff;
+      box-shadow:var(--shadow);cursor:pointer;z-index:940;opacity:0;pointer-events:none;transition:.25s
+    }
+    .back-to-top.show{opacity:1;pointer-events:auto}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,#cfe3ff,transparent);margin:18px 0}
+ 
+  </style>
+</head>
+<body>
+  <!-- ========================================================
+       SOCIAL RAIL (fixed, right-center, no gap)
+  ========================================================= -->
+  <div class="social-rail" aria-label="Quick Links">
+    <a class="" href="registration-form.html" title="" aria-label="Instagram"><i class="">Apply</i></a>
+    <a class="soc instagram" href="#" title="Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a class="soc facebook" href="#" title="Facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a class="soc twitter" href="#" title="Twitter/X" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+    <a class="soc whatsapp" href="#" title="WhatsApp Community" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <button class="soc query" id="openQuery" title="Quick Query" aria-label="Quick Query"><i class="fa-regular fa-envelope"></i></button>
+  </div>
+
+  <!-- ===================================== -->
+  <!-- Header (two rows)                     -->
+  <!-- ===================================== -->
+  <header>
+  <div class="top-bar">
+    <img src="assets/logo.png" alt="Logo" />
+    <h1>Centre of Excellence — Hybrid & Electric Vehicles (KPRIET) </h1>
+
+    <!-- Hamburger Button -->
+    <button class="menu-toggle" aria-label="Toggle Menu">
+      ☰
+    </button>
+  </div>
+
+  <nav class="nav">
+    <ul>
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="courses.html" class="nav-link">Courses</a></li>
+      <li><a href="events.html" class="nav-link">Events</a></li>
+      <!-- <li><a href="gallery.html" class="nav-link">Gallery</a></li> -->
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+  <!-- ===================================== -->
+  <!-- Hero / Page Intro                      -->
+  <!-- ===================================== -->
+  <section class="hero" role="banner">
+    <span class="orb one"></span>
+    <span class="orb two"></span>
+    <div class="container">
+      <div data-aos="fade-right" data-aos-duration="2000">
+        <h2>About Our <span class="pulse-ring">IMI-Approved</span> Centre</h2>
+        <p class="mt-12">Proudly recognized as <strong>India’s first IMI Approved Centre</strong>, we educate and upskill the next generation
+          of EV innovators through <em>hands-on labs, global certifications</em>, and strong industry collaborations with
+          Audi, ELGi, Lucas-Nuelle and more.</p>
+        <div class="cta">
+          <a class="btn" href="#about-overview"><i class="fa-solid fa-circle-info"></i> Learn More</a>
+          <a class="btn btn-outline" href="#highlights"><i class="fa-solid fa-bolt"></i> Key Highlights</a>
+        </div>
+      </div>
+      <div class="hero-media float-y" data-aos="zoom-in" data-aos-duration="2000">
+        <video src="assests/IMG_4212.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================== -->
+  <!-- About Overview                         -->
+  <!-- ===================================== -->
+  <section id="about-overview" class="section">
+    <div class="container about-grid">
+      <div data-aos="fade-up" data-aos-duration="1800" class="about-card">
+        <span class="icon-pill"><i class="fa-solid fa-award"></i> India’s 1st IMI Approved Centre</span>
+        <h3 class="mt-12" style="color:var(--blue-900)">Who We Are</h3>
+        <p class="mt-8">At the Centre of Excellence in Hybrid & Electric Vehicles, KPRIET, our mission is to bridge academia and
+          industry with <strong>project-based learning</strong> and <strong>international certifications</strong>. Our curriculum spans EV powertrains,
+          battery management, safety, diagnostics, and charging infrastructure. We operate with a strong focus on
+          <em>hands-on training</em>, reverse engineering, and real-vehicle experimentation.</p>
+        <div class="about-points mt-12">
+          <div class="tick"><i class="fa-solid fa-check"></i><span>Global IMI-aligned assessments & badges</span></div>
+          <div class="tick"><i class="fa-solid fa-check"></i><span>Industry workshops (AUDI, Mercedes-Benz demos)</span></div>
+          <div class="tick"><i class="fa-solid fa-check"></i><span>Battery & BMS, motors, inverters, CAN diagnostics</span></div>
+          <div class="tick"><i class="fa-solid fa-check"></i><span>Green mobility projects & entrepreneurship</span></div>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-duration="1800" class="about-card">
+        <img class="float-y" src="assests/img_ehv_1.jpg" alt="EV Lab" />
+        <p class="muted mt-12">Our HEV Lab features cutaway engines, EV kits, diagnostics benches and charging setups to provide
+          total system understanding, from cell to system level.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================== -->
+  <!-- Mission & Vision (Institute / Dept / COE) -->
+  <!-- ===================================== -->
+  <section class="section" id="mission-vision">
+    <div class="container">
+      <h3 class="section-title">Mission & Vision</h3>
+      <p class="section-kicker">Institute, Department and Centre — each driving excellence in a shared direction.</p>
+      <div class="mv-grid">
+        <!-- Institute Card -->
+        <article class="mv-card" data-entity="institute" data-aos="fade-up" data-aos-duration="1800">
+          <div class="mv-media">
+            <img src="assests/img_kpr.jpg" alt="Institute" />
+          </div>
+          <div class="mv-tabs">
+            <button class="mv-tab active" data-target="inst-vision">Vision</button>
+            <button class="mv-tab" data-target="inst-mission">Mission</button>
+          </div>
+          <div class="mv-body">
+            <div id="inst-vision" class="mv-pane">
+              <p><strong>Vision:</strong> To be a premier institution recognized globally for excellence in teaching, learning,
+                research, and innovation, nurturing responsible professionals and leaders.</p>
+            </div>
+            <div id="inst-mission" class="mv-pane hidden">
+              <p><strong>Mission:</strong> Foster holistic growth through quality education, industry collaboration, and a
+                research-driven culture that addresses societal and environmental challenges.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- Department Card -->
+        <article class="mv-card" data-entity="department" data-aos="fade-up" data-aos-delay="120" data-aos-duration="1800">
+          <div class="mv-media">
+            <img src="assests/imig_mechatonics.jpg" alt="Department" />
+          </div>
+          <div class="mv-tabs">
+            <button class="mv-tab active" data-target="dept-vision">Vision</button>
+            <button class="mv-tab" data-target="dept-mission">Mission</button>
+          </div>
+          <div class="mv-body">
+            <div id="dept-vision" class="mv-pane">
+              <p><strong>Vision:</strong> Develop engineers with deep fundamentals, practical competence and problem-solving
+                abilities in automotive & energy systems.</p>
+            </div>
+            <div id="dept-mission" class="mv-pane hidden">
+              <p><strong>Mission:</strong> Deliver outcome-based curriculum, advanced laboratories, internships and projects that
+                transform learners into <em>industry-ready professionals</em>.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- COE Card -->
+        <article class="mv-card" data-entity="coe" data-aos="fade-up" data-aos-delay="240" data-aos-duration="1800">
+          <div class="mv-media">
+            <img src="assests/img_lab_index.jpg" alt="COE" />
+          </div>
+          <div class="mv-tabs">
+            <button class="mv-tab active" data-target="coe-vision">Vision</button>
+            <button class="mv-tab" data-target="coe-mission">Mission</button>
+          </div>
+          <div class="mv-body">
+            <div id="coe-vision" class="mv-pane">
+              <p><strong>Vision:</strong> To be a globally recognized Centre of Excellence in Hybrid & Electric Vehicles—
+                advancing sustainable mobility through skills, research and innovation.</p>
+            </div>
+            <div id="coe-mission" class="mv-pane hidden">
+              <p><strong>Mission:</strong> Provide world-class training aligned to IMI (UK), catalyze industry projects and
+                entrepreneurship, and create practical solutions for green mobility.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================== -->
+  <!-- Leadership Roller (Principal / HoD / COE Head) -->
+  <!-- ===================================== -->
+ <section class="section roller-wrap" id="leaders">
+  <div class="container">
+    <h3 class="section-title">Leadership Messages</h3>
+    <p class="section-kicker">Guidance from our Institute, Department and COE leaders.</p>
+  </div>
+  <div class="roller" aria-label="Leadership carousel">
+    <div class="roller-track">
+      <div class="leader">
+        <img src="assests/img_kp_r.webp" alt="Principal" />
+        <div>
+          <strong>Principal, KPRIET</strong>
+          <small class="block">"We champion an ecosystem where curiosity meets hands-on learning and global standards."</small>
+        </div>
+      </div>
+      <div class="leader">
+        <img src="assests/img_hod.jpg" alt="HoD" />
+        <div>
+          <strong>Head of Department</strong>
+          <small class="block">"Our students build, test and iterate—turning ideas into real mobility solutions."</small>
+        </div>
+      </div>
+      <div class="leader">
+        <img src="assests/img_cm_ehv.jpg" alt="COE Head" />
+        <div>
+          <strong>Head, COE-HEV</strong>
+          <small class="block">"As India’s first IMI Approved Centre, we enable world-class EV upskilling pathways."</small>
+        </div>
+      </div>
+      <!-- Duplicates for seamless loop -->
+      <div class="leader">
+        <img src="https://via.placeholder.com/140" alt="Principal" />
+        <div>
+          <strong>Principal, KPRIET</strong>
+          <small class="block">"We champion an ecosystem where curiosity meets hands-on learning and global standards."</small>
+        </div>
+      </div>
+      <div class="leader">
+        <img src="https://via.placeholder.com/140" alt="HoD" />
+        <div>
+          <strong>Head of Department</strong>
+          <small class="block">"Our students build, test and iterate—turning ideas into real mobility solutions."</small>
+        </div>
+      </div>
+      <div class="leader">
+        <img src="https://via.placeholder.com/140" alt="COE Head" />
+        <div>
+          <strong>Head, COE-HEV</strong>
+          <small class="block">"As India’s first IMI Approved Centre, we enable world-class EV upskilling pathways."</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- ===================================== -->
+  <!-- Deep About (extra explanation section) -->
+  <!-- ===================================== -->
+  <section class="section" id="deep-about">
+    <div class="container">
+      <h3 class="section-title">About Us — In Depth</h3>
+      <p class="section-kicker">What makes our Centre unique in India’s EV landscape</p>
+      <div class="story">
+        <div class="block" data-aos="fade-up" data-aos-duration="1800">
+          <h4>Hands-on Curriculum</h4>
+          <p>Our modules cover EV fundamentals to advanced topics: <em>powertrain architectures, battery chemistry & BMS,
+            charging standards (AC/DC), inverter & motor control, thermal management</em> and vehicle integration. Learners
+            work on real assemblies, simulators and diagnostics to bridge the theory–practice gap.</p>
+          <div class="metrics">
+            <div class="metric"><h3 class="counter" data-target="40">0</h3><small>Lab Modules</small></div>
+            <div class="metric"><h3 class="counter" data-target="15">0</h3><small>Industry Demos</small></div>
+            <div class="metric"><h3 class="counter" data-target="500">0</h3><small>Global Centres (IMI)</small></div>
+            <div class="metric"><h3 class="counter" data-target="1200">0</h3><small>Trained Learners</small></div>
+          </div>
+        </div>
+        <div class="block" data-aos="fade-up" data-aos-delay="120" data-aos-duration="1800">
+          <h4>Industry Ecosystem</h4>
+          <p>We collaborate with <strong>Audi</strong>, <strong>ELGi</strong>, <strong>Lucas‑Nuelle</strong>, and other partners for workshops, cutaway models,
+            toolchains and expert sessions. Exposure spans diagnostics, service, and safety practices aligned to IMI (UK)
+            assessment rubrics.</p>
+          <img class="mt-12" src="assests/img_eco_system.jpg" alt="Industry Workshop"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================== -->
+  <!-- Key Highlights (News / Events timeline) -->
+  <!-- ===================================== -->
+  <section id="highlights" class="section highlights">
+    <div class="container">
+      <h3 class="section-title" style="color:#fff">Key Highlights & News</h3>
+      <p class="section-kicker" style="color:#e1f5ff">Milestones and activities from our Centre</p>
+      <div class="timeline">
+        <div class="item" data-aos="fade-up" data-aos-duration="2000">
+          <div class="item-header">
+            <h4>India’s First IMI Approved Centre Inaugurated</h4>
+            <span class="pill">Certification</span>
+          </div>
+          <div class="item-body">
+            Our COE became the <strong>first IMI-approved centre in India</strong>, aligning training standards with IMI (UK). The centre
+            now offers IMI Level 1 and Level 2 award pathways with global digital badges.
+          </div>
+        </div>
+        <div class="item" data-aos="fade-up" data-aos-delay="80" data-aos-duration="2000">
+          <div class="item-header">
+            <h4>AUDI Q5 Engine Cutaway — Learning Exhibit</h4>
+            <span class="pill">Workshop</span>
+          </div>
+          <div class="item-body">
+            Students explore engine architecture, drivetrains, safety protocols and diagnostics through a hands-on exhibit and
+            guided lab walkthroughs.
+          </div>
+        </div>
+        <div class="item" data-aos="fade-up" data-aos-delay="160" data-aos-duration="2000">
+          <div class="item-header">
+            <h4>Skill Training Programs (Painting, CAD, Reverse Engineering)</h4>
+            <span class="pill">SkillUp</span>
+          </div>
+          <div class="item-body">
+            Short modules aimed at practical skills for mobility careers — CAD modelling, vehicle painting workflows,
+            teardown & assembly, and service best‑practices.
+          </div>
+        </div>
+        <div class="item" data-aos="fade-up" data-aos-delay="240" data-aos-duration="2000">
+          <div class="item-header">
+            <h4>International Collaboration with IMI (UK)</h4>
+            <span class="pill">Global</span>
+          </div>
+          <div class="item-body">
+            Learners gain assessment pathways mapped to IMI standards and access to a global network of 500+ centres.
+          </div>
+        </div>
+      </div>
+      <div class="center mt-18"><button class="btn" id="expandAll"><i class="fa-solid fa-down-long"></i> Expand All</button></div>
+    </div>
+  </section>
+
+  <!-- ===================================== -->
+  <!-- Team & Labs                            -->
+  <!-- ===================================== -->
+  <section class="section" id="team-labs">
+    <div class="container">
+      <h3 class="section-title">Our Team & Labs</h3>
+      <p class="section-kicker">Meet the people behind the Centre and explore our learning spaces</p>
+
+      <!-- Team Filters -->
+      <div class="filters" role="tablist" aria-label="Team filters">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="faculty">Faculty</button>
+        <button class="chip" data-filter="trainer">Trainers</button>
+        <button class="chip" data-filter="research">Research</button>
+      </div>
+
+      <!-- Team Grid -->
+      <div class="team-grid" id="teamGrid">
+        <div class="card" data-role="faculty" data-aos="zoom-in" data-aos-duration="1600">
+          <img src="assests/img_cm_ehv.jpg" alt="Faculty Lead" />
+          <h4>Faculty Lead</h4>
+          <div class="role">EV Powertrain Systems</div>
+        </div>
+        <div class="card" data-role="research" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="80">
+          <img src="assests/img_head.jpg" alt="Research Engineer" />
+          <h4>Research Engineer</h4>
+          <div class="role">Battery Management & Charging</div>
+        </div>
+        <div class="card" data-role="trainer" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="120">
+          <img src="assests/img_hod.jpg" alt="Technical Trainer" />
+          <h4>Technical Trainer</h4>
+          <div class="role">IMI Practical Assessments</div>
+        </div>
+        <div class="card" data-role="trainer" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="160">
+          <img src="assests/img_prof1.jpg" alt="Workshop Mentor" />
+          <h4>Workshop Mentor</h4>
+          <div class="role">Diagnostics & Safety</div>
+        </div>
+        <div class="card" data-role="faculty" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="200">
+          <img src="assests/img_prof2.jpg" alt="Assistant Professor" />
+          <h4>Assistant Professor</h4>
+          <div class="role">Control Systems</div>
+        </div>
+        <div class="card" data-role="research" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="240">
+          <img src="assests/img_prof3.jpg" alt="Project Associate" />
+          <h4>Project Associate</h4>
+          <div class="role">Thermal & Integration</div>
+        </div>
+        <div class="card" data-role="trainer" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="280">
+          <img src="assests/img_prof4.jpg" alt="Lab Instructor" />
+          <h4>Lab Instructor</h4>
+          <div class="role">Assembly & Teardown</div>
+        </div>
+        <div class="card" data-role="faculty" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="320">
+          <img src="assests/img_prof5.jpg" alt="Faculty Mentor" />
+          <h4>Faculty Mentor</h4>
+          <div class="role">Power Electronics</div>
+        </div>
+        <div class="card" data-role="faculty" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="320">
+          <img src="assests/img_prof6.jpg" alt="Faculty Mentor" />
+          <h4>Faculty Mentor</h4>
+          <div class="role">Power Electronics</div>
+        </div>
+        <div class="card" data-role="faculty" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="320">
+          <img src="assests/img_prof7.jpg" alt="Faculty Mentor" />
+          <h4>Faculty Mentor</h4>
+          <div class="role">Power Electronics</div>
+        </div>
+        <div class="card" data-role="faculty" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="320">
+          <img src="assests/img_prof8.jpg" alt="Faculty Mentor" />
+          <h4>Faculty Mentor</h4>
+          <div class="role">Power Electronics</div>
+        </div>
+        <div class="card" data-role="faculty" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="320">
+          <img src="assests/img_prof9.jpg" alt="Faculty Mentor" />
+          <h4>Faculty Mentor</h4>
+          <div class="role">Power Electronics</div>
+        </div>
+        <div class="card" data-role="faculty" data-aos="zoom-in" data-aos-duration="1600" data-aos-delay="320">
+          <img src="assests/img_prof10.jpg" alt="Faculty Mentor" />
+          <h4>Faculty Mentor</h4>
+          <div class="role">Power Electronics</div>
+        </div>
+      </div>
+
+      <!-- Labs carousel (scrollable) -->
+      <div class="labs">
+        <div class="lab-track" id="labTrack">
+          <figure class="lab" data-aos="fade-up" data-aos-duration="1600">
+            <img src="assests/img_rob_aut_lab.JPG" alt="Diagnostics Bench" />
+            <figcaption class="caption"><strong>Robotics & Automation</strong><br><small>CAN tools, scopes & safety protocols</small></figcaption>
+          </figure>
+          <figure class="lab" data-aos="fade-up" data-aos-duration="1600" data-aos-delay="80">
+            <img src="assests/img_home_lab.JPG" alt="Battery Lab" />
+            <figcaption class="caption"><strong>Home Automation </strong><br><small>Cells, packs, BMS, thermal rigs</small></figcaption>
+          </figure>
+          <figure class="lab" data-aos="fade-up" data-aos-duration="1600" data-aos-delay="120">
+            <img src="assests/img_industrial_lab.JPG" alt="Motor & Inverter" />
+            <figcaption class="caption"><strong>Industrial Automation </strong><br><small>Control strategies & efficiency</small></figcaption>
+          </figure>
+          <figure class="lab" data-aos="fade-up" data-aos-duration="1600" data-aos-delay="160">
+            <img src="assests/img_uav_lab.JPG " alt="Charging Bay" />
+            <figcaption class="caption"><strong>Unmanned Areial Vehicle</strong><br><small>AC/DC, connectors, protocols</small></figcaption>
+          </figure>
+        </div>
+        <div class="center mt-12">
+          <button class="btn" id="scrollLeft"><i class="fa-solid fa-arrow-left"></i> Prev</button>
+          <button class="btn" id="scrollRight">Next <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+   <!-- ========================================================
+       FOOTER
+  ========================================================= -->
+  <footer id="contact">
+    <div class="container foot">
+      <div>
+        <h5>Centre of Excellence — Hybrid & Electric Vehicles</h5>
+        <p class="mt-6">KPR Institute of Engineering and Technology (KPRIET)</p>
+        <p class="muted mt-6">Email: <a href="mailto:coehev@kpriet.ac.in">coehev@kpriet.ac.in</a></p>
+        <p class="muted">Phone: +91 422 263 5600 (Ext. 675)</p>
+        <p class="muted mt-6">Address: KPRIET, Coimbatore, Tamil Nadu, India</p>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <p class="mt-6"><a href="#courses">Courses</a></p>
+        <p><a href="#offers">What We Offer</a></p>
+        <p><a href="#visit">Book a Visit</a></p>
+        <p><a href="about.html">About</a></p>
+      </div>
+      <div>
+        <h5>Policies</h5>
+        <p class="mt-6"><a href="#">Privacy Policy</a></p>
+        <p><a href="#">Terms of Use</a></p>
+        <p><a href="#">Accessibility</a></p>
+      </div>
+    </div>
+    <div class="container copyright">© 2025 COE — Hybrid & Electric Vehicles, KPRIET</div>
+  </footer>
+ <!-- ========================================================
+       BACK TO TOP
+  ========================================================= -->
+  <button class="back-to-top" id="toTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <!-- ===================================== -->
+  <!-- Scripts (AOS + Interactivity)          -->
+  <!-- ===================================== -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // Init AOS with longer durations (2–3s per section as requested)
+    AOS.init({ duration: 2000, once: true, easing: 'ease-in-out' });
+ document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll(".nav-link");
+    const current = window.location.pathname.split("/").pop();
+    const toggleBtn = document.querySelector(".menu-toggle");
+    const navList = document.querySelector(".nav ul");
+
+    // Active link highlight
+    links.forEach(link => {
+      if (link.getAttribute("href") === current) {
+        link.classList.add("active");
+      }
+    });
+
+    // Toggle mobile menu
+    toggleBtn.addEventListener("click", () => {
+      navList.classList.toggle("open");
+      toggleBtn.textContent = navList.classList.contains("open") ? "✖" : "☰";
+    });
+  });
+    // -------------------------------
+    // Tabs for Mission/Vision cards
+    // -------------------------------
+    document.querySelectorAll('.mv-card').forEach(card=>{
+      const tabs = card.querySelectorAll('.mv-tab');
+      tabs.forEach(tab=>{
+        tab.addEventListener('click',()=>{
+          tabs.forEach(t=>t.classList.remove('active'));
+          tab.classList.add('active');
+          const panes = card.querySelectorAll('.mv-pane');
+          panes.forEach(p=>p.classList.add('hidden'));
+          const target = card.querySelector('#'+tab.dataset.target);
+          if(target) target.classList.remove('hidden');
+        })
+      })
+    })
+    
+    // -------------------------------
+    // Highlights accordion items
+    // -------------------------------
+    const items = document.querySelectorAll('.timeline .item');
+    items.forEach(it=>{
+      const header = it.querySelector('.item-header');
+      header.addEventListener('click',()=>{
+        const body = it.querySelector('.item-body');
+        body.style.display = body.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+    document.getElementById('expandAll').addEventListener('click',()=>{
+      document.querySelectorAll('.timeline .item .item-body').forEach(b=>b.style.display='block');
+    });
+
+    // -------------------------------
+    // Animated counters when visible
+    // -------------------------------
+    const counters = document.querySelectorAll('.counter');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const el = entry.target; const target = +el.dataset.target; let cur = 0;
+          const inc = Math.max(1, Math.ceil(target/60));
+          const step = ()=>{ cur += inc; if(cur>target) cur=target; el.textContent = cur; if(cur<target) requestAnimationFrame(step); };
+          step();
+          io.unobserve(el);
+        }
+      })
+    },{threshold:0.6});
+    counters.forEach(c=>io.observe(c));
+
+    // -------------------------------
+    // Team filter chips
+    // -------------------------------
+    const chips = document.querySelectorAll('.chip');
+    const teamCards = document.querySelectorAll('#teamGrid .card');
+    chips.forEach(ch=>{
+      ch.addEventListener('click',()=>{
+        chips.forEach(c=>c.classList.remove('active'));
+        ch.classList.add('active');
+        const f = ch.dataset.filter;
+        teamCards.forEach(card=>{
+          card.style.display = (f==='all'|| card.dataset.role===f)?'block':'none';
+        })
+      })
+    })
+
+    // -------------------------------
+    // Labs carousel buttons
+    // -------------------------------
+    const track = document.getElementById('labTrack');
+    document.getElementById('scrollLeft').addEventListener('click',()=>{ track.scrollBy({left:-320,behavior:'smooth'}) });
+    document.getElementById('scrollRight').addEventListener('click',()=>{ track.scrollBy({left:320,behavior:'smooth'}) });
+  
+  // ----------------------------------------------
+    // Back-to-top
+    // ----------------------------------------------
+    const toTop = document.getElementById('toTop');
+    const topObs = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ toTop.classList.remove('show'); }
+        else { toTop.classList.add('show'); }
+      })
+    },{rootMargin:'-120px 0px 0px 0px'});
+    topObs.observe(document.querySelector('#top') || document.body);
+    toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+  </script>
+</body>
+</html>

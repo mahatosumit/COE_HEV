@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Courses — COE Hybrid & Electric Vehicles | KPRIET</title>
+  <!-- Icons & Animation Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --brand:#007bff;
+  --brand-2:#2d7dff;
+  --brand-3:#66b2ff;
+  --accent:#ff6600;
+  --accent-2:#ff944d;
+  --ink:#1e2a38;
+  --muted:#5f6b7a;
+  --bg:#f6f8fc;
+  --panel:#ffffff;
+  --line:rgba(0,0,0,.08);
+  --shadow:0 10px 30px rgba(0,0,0,.10);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family: "Segoe UI", Roboto, system-ui, Arial, sans-serif;
+  line-height:1.6;
+  scroll-behavior:smooth;
+}
+
+:root{
+  --blue-950:#00142f;
+  --blue-900:#001b44;
+  --blue-800:#002a66;
+  --blue-700:#003366;
+  --blue-650:#003d7a;
+  --blue-600:#004080;
+  --blue-500:#0066cc;
+  --blue-400:#3b82f6;
+  --saffron:#f4a100;     /* buttons */
+  --green:#20b15a;       /* hover */
+  --text:#101216;
+  --muted:#6b7280;
+  --bg:#f6fbff;
+  --card:#ffffff;
+  --chip:#eef6ff;
+  --shadow:0 14px 40px rgba(0,0,0,.12);
+  --shadow-sm:0 10px 22px rgba(0,0,0,.10);
+  --radius:16px;
+  --radius-sm:12px;
+  --radius-lg:22px;
+  --speed:2.2s;
+  --brand:#007bff;
+  --brand-2:#2d7dff;
+  --brand-3:#66b2ff;
+  --accent:#ff6600;
+  --accent-2:#ff944d;
+  --ink:#1e2a38;
+  --line:rgba(0,0,0,.08);
+}
+
+/* Reset + Body */
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter', "Segoe UI", Roboto, system-ui, Arial, sans-serif;
+  line-height:1.6;
+  scroll-behavior:smooth;
+  /* space for fixed header */
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+
+/* ---------------------------------------
+       Header (two-row: logo+heading, then nav)
+    --------------------------------------- */
+    header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+ background: linear-gradient(90deg,#007bff,#0056b3);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+  backdrop-filter: saturate(1.2) blur(4px);
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* for logo + title + hamburger */
+  padding: 10px 16px;
+  background: var(--blue-700);   /* ✅ add this line */
+  color: #fff;                   /* ✅ text stays white */
+}
+.top-bar img {
+  height: 48px;
+  transition: transform .3s;
+}
+.top-bar img:hover {
+  transform: rotate(-4deg) scale(1.05);
+}
+.top-bar h1 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+/* Hamburger */
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+  display: none; /* hidden on desktop */
+}
+
+/* Nav */
+nav.nav {
+ background: linear-gradient(90deg,#007bff,#0056b3);
+}
+.nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  justify-content: center;
+}
+.nav a {
+  padding: 8px 2px;
+  color: #fff;
+  font-weight: 600;
+  position: relative;
+  text-decoration: none;
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 0;
+  background: var(--green);
+  transition: width .3s ease;
+}
+.nav a:hover {
+  color: #c8ffe5;
+}
+.nav a:hover::after {
+  width: 100%;
+}
+.nav a.active {
+  color: #a6e3ff;
+}
+
+/* ===== Responsive Styles ===== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    display: none; /* hidden by default */
+  }
+
+  .nav ul.open {
+    display: flex;
+    animation: fadeIn .3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+}
+/* ==========================================================
+       2) SOCIAL RAIL (fixed right, no gap)
+    =========================================================== */
+    .social-rail{
+      
+      position:fixed;right:0;top:50%;transform:translateY(-50%);
+      display:flex;flex-direction:column;gap:0;z-index:950;
+      border-radius:10px 0 0 10px;overflow:hidden;box-shadow:var(--shadow);
+    }
+    .soc{
+      width:46px;height:46px;display:grid;place-items:center;
+      background:orange;transition:.25s;border-left:2px solid transparent
+    }
+    .soc:hover{transform:scale(1.05);filter:saturate(1.12)}
+    .soc.instagram{color:#e1306c}
+    .soc.facebook{color:#1877f2}
+    .soc.twitter{color:#1da1f2}
+    .soc.whatsapp{color:#25d366}
+    .soc.query{color:#004080}
+    .soc + .soc{border-top:1px solid #eaeef4}
+
+
+
+/* ✅ FULL WIDTH FOOTER */
+footer {
+  width: 100%;
+  background: var(--blue-700);
+  color: #fff;
+  padding: 30px 0 14px;
+  margin-top: 30px;
+}
+.foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+.foot h5{margin-bottom:10px}
+.foot a{color:#d6ecff}
+.copyright{text-align:center;padding-top:14px;color:#d7ebff;border-top:1px solid rgba(255,255,255,.15);margin-top:16px}
+@media (max-width:100%){.foot{grid-template-columns:1fr}}
+
+.page {
+  max-width: min(1200px, 94vw);
+  margin: 32px auto 0;
+}
+
+.page-heading {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent);   /* orange */
+  margin: 0 0 20px 0;
+  text-align: left;
+  position: relative;
+  display: inline-block;
+}
+
+/* Scroll Animation Base */
+.reveal {opacity:0; transform:translateY(40px); transition:all 0.8s ease;}
+.reveal.active {opacity:1; transform:translateY(0);}
+
+/* Gallery (IMI 1–3) */
+.gallery{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap:26px;
+  margin:10px 0 24px;
+}
+.card{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  background:#eef3ff;
+  border:2px solid transparent;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  cursor:pointer;
+  height:280px;
+  transition: transform .35s ease, box-shadow .35s ease, border-color .5s ease;
+}
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 16px 34px rgba(0,0,0,.14);
+  border-color:var(--brand-2);
+}
+.card .img-box{
+  width:100%; height:100%;
+  border-radius:14px;
+  overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  border:2px solid transparent;
+  transition:border-color .6s ease, box-shadow .6s ease;
+}
+.card:hover .img-box{
+  border-color:var(--brand-3);
+  box-shadow:0 0 16px var(--brand-3);
+  animation:glow 1.5s infinite alternate;
+}
+@keyframes glow {
+  from { box-shadow:0 0 8px var(--brand-2); }
+  to { box-shadow:0 0 20px var(--brand-3); }
+}
+.card .thumb{width:100%; height:100%; object-fit:cover; display:block}
+.card .label{
+  position:absolute; left:16px; bottom:16px;
+  background:rgba(0,0,0,.56);
+  color:#fff; font-weight:800; font-size:1rem;
+  padding:10px 14px; border-radius:12px;
+  letter-spacing:.2px; backdrop-filter:saturate(140%) blur(4px);
+}
+.card .kicker{
+  position:absolute; left:14px; top:10px; color:#fff; font-weight:800;
+  background:linear-gradient(90deg, var(--accent), var(--accent-2));
+  padding:6px 10px; border-radius:999px; font-size:.78rem; letter-spacing:.06rem;
+}
+
+/* Expanded sections */
+.section{
+  display:none;
+  grid-template-columns: 1fr 1fr;
+  gap:26px; align-items:center;
+  margin: 8px 0 26px;
+  padding:22px;
+  border:2px solid transparent;
+  background:var(--panel);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  transition:border-color .6s ease, transform .6s ease;
+}
+.section.show{display:grid; animation:fadeIn .45s ease forwards}
+.section:hover{border-color:var(--brand-2); transform:translateY(-4px);}
+.section.reverse{grid-template-columns:1fr 1fr}
+.section .media{
+  position:relative; border:2px solid transparent;
+  border-radius:14px; overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  width:100%;
+  aspect-ratio:16/9;
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .6s ease, box-shadow .6s ease;
+}
+.section:hover .media{
+  border-color:var(--brand-3);
+  box-shadow:0 0 18px var(--brand-3);
+}
+.section .media img{
+  width:100%; height:100%;
+  object-fit:cover; display:block;
+}
+.section .s-tag{position:absolute; top:12px; left:12px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; font-weight:800; font-size:.75rem; padding:6px 10px; border-radius:999px; letter-spacing:.08rem}
+.section .text .kicker{color:var(--accent); text-transform:uppercase; font-weight:900; letter-spacing:.22rem; font-size:.82rem; margin:0 0 6px; display:inline-flex; align-items:center; gap:8px}
+.section .text .kicker::before{content:""; width:26px; height:2px; background:var(--accent); border-radius:2px}
+.section .text h2{margin:6px 0 10px; font-size:clamp(1.2rem,1.1vw + 1.1rem,1.9rem); color:var(--brand)}
+.section .badges{display:flex; flex-wrap:wrap; gap:10px; margin:8px 0 12px}
+.badge{border:2px solid var(--brand-2); border-radius:10px; padding:6px 10px; font-size:.84rem; color:var(--accent); font-weight:700; background:#f0f6ff}
+.s-list{margin:10px 0 0; padding:0; list-style:none}
+.s-list li{display:flex; gap:10px; align-items:flex-start; padding:7px 0; border-bottom:1px dashed rgba(0,0,0,.08)}
+.s-list li:last-child{border-bottom:none}
+.s-bullet{width:10px; height:10px; flex:0 0 10px; margin-top:6px; border-radius:3px; background:linear-gradient(180deg,var(--brand),var(--accent))}
+
+/* Skill & Workshop cards */
+.skill-cards, .workshop-cards{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap:20px;
+  margin-top:14px;
+}
+.skill-card{
+  background:#f9fbff;
+  border:2px solid transparent;
+  padding:18px;
+  border-radius:14px;
+  box-shadow:0 4px 14px rgba(0,0,0,.06);
+  transition: all .45s ease;
+}
+.skill-card h4{margin:0 0 6px; font-size:1rem; color:var(--brand)}
+.skill-card p{margin:0; font-size:.9rem; color:var(--muted)}
+.skill-card:hover {
+  background: var(--brand-2);
+  transform: translateY(-6px) scale(1.03);
+  border-color: var(--brand-3);
+  box-shadow: 0 10px 22px rgba(0,123,255,.45);
+}
+.skill-card:hover h4,
+.skill-card:hover p {
+  color: #fff;
+}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none}}
+@media (max-width: 900px){.section,.section.reverse{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <!-- ========================================================
+       SOCIAL RAIL (fixed, right-center, no gap)
+  ========================================================= -->
+  <div class="social-rail" aria-label="Quick Links">
+    <a class="" href="registration-form.html" title="" aria-label="Instagram"><i class="">Apply</i></a>
+    <a class="soc instagram" href="#" title="Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a class="soc facebook" href="#" title="Facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a class="soc twitter" href="#" title="Twitter/X" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+    <a class="soc whatsapp" href="#" title="WhatsApp Community" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <button class="soc query" id="openQuery" title="Quick Query" aria-label="Quick Query"><i class="fa-regular fa-envelope"></i></button>
+  </div>
+  <!-- ========================================================
+       HEADER (two-row: logo+heading, then nav)-->
+ <header>
+  <div class="top-bar">
+    <img src="assets/logo.png" alt="Logo" />
+    <h1>Centre of Excellence — Hybrid & Electric Vehicles (KPRIET) </h1>
+
+    <!-- Hamburger Button -->
+    <button class="menu-toggle" aria-label="Toggle Menu">
+      ☰
+    </button>
+  </div>
+
+  <nav class="nav">
+    <ul>
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="courses.html" class="nav-link">Courses</a></li>
+      <li><a href="events.html" class="nav-link">Events</a></li>
+      <!-- <li><a href="gallery.html" class="nav-link">Gallery</a></li> -->
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+<div class="page">
+  <h1 class="page-heading">Courses</h1>
+
+  <!-- Gallery cards -->
+  <div class="gallery reveal" id="gallery">
+    <figure class="card" data-target="sec1">
+      <div class="img-box">
+        <img class="thumb" src="assests/img_level_1.JPG" alt="IMI Level 1">
+      </div>
+      <figcaption class="label">IMI Level 1 — EV Awareness</figcaption>
+      <span class="kicker">IMI Level 1</span>
+    </figure>
+    <figure class="card" data-target="sec2">
+      <div class="img-box">
+        <img class="thumb" src="assests/img_level_2_1.JPG" alt="IMI Level 2.1">
+      </div>
+      <figcaption class="label">IMI Level 2.1 — Hazard Management</figcaption>
+      <span class="kicker">IMI Level 2.1</span>
+    </figure>
+    <figure class="card" data-target="sec3">
+      <div class="img-box">
+        <img class="thumb" src="assests/img_level_2_2.JPG" alt="IMI Level 2.2">
+      </div>
+      <figcaption class="label">IMI Level 2.2 — EV Maintenance</figcaption>
+      <span class="kicker">IMI Level 2.2</span>
+    </figure>
+  </div>
+
+  <!-- Dynamic placeholder for expanded sections -->
+  <div id="details-anchor"></div>
+
+  <!-- Skill Training -->
+  <section class="section show reveal">
+    <div class="text">
+      <div class="kicker">SKILL TRAINING PROGRAM</div>
+      <h2>Hands-on Skill Tracks</h2>
+      <p>Industry-relevant tracks designed to transform theory into employable practice within weeks.</p>
+      <div class="skill-cards">
+        <div class="skill-card">
+          <h4>Vehicle Body Prep & Painting</h4>
+          <p>Base coat, primer, colour matching and HVLP gun usage.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Reverse Engineering & CAD</h4>
+          <p>Teardown analysis, GD&T, parametric modelling and assemblies.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Diagnostic Scanners</h4>
+          <p>OBD-II, CAN bus tracing, fault code triage and freeze-frame analysis.</p>
+        </div>
+      </div>
+    </div>
+    <div class="media">
+      <img src="assets/images/skill-training.jpg" alt="Skill Training">
+    </div>
+  </section>
+
+  <!-- Workshop -->
+  <section class="section reverse show reveal">
+    <div class="media">
+      <img src="assets/images/workshop.jpg" alt="Workshop">
+    </div>
+    <div class="text">
+      <div class="kicker">WORKSHOPS</div>
+      <h2>Specialised Automotive Workshops</h2>
+      <p>Immersive workshops that let students and professionals practice with real automotive systems.</p>
+      <div class="workshop-cards">
+        <div class="skill-card">
+          <h4>IC Engine Overhaul</h4>
+          <p>Complete strip-down and rebuild of 4-stroke IC engines.</p>
+        </div>
+        <div class="skill-card">
+          <h4>Vehicle Dynamics Lab</h4>
+          <p>Testing suspension geometry, weight transfer and chassis setup.</p>
+        </div>
+        <div class="skill-card">
+          <h4>EV Conversion Workshop</h4>
+          <p>Retrofit of small vehicles to EV drivetrains with safety compliance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ========================================================
+     FOOTER (FULL WIDTH)
+========================================================= -->
+<footer id="contact">
+  <div class="container foot">
+    <div>
+      <h5>Centre of Excellence — Hybrid & Electric Vehicles</h5>
+        <p class="mt-6">KPR Institute of Engineering and Technology (KPRIET)</p>
+        <p class="muted mt-6">Email: <a href="mailto:coehev@kpriet.ac.in">coehev@kpriet.ac.in</a></p>
+        <p class="muted">Phone: +91 422 263 5600 (Ext. 675)</p>
+        <p class="muted mt-6">Address: KPRIET, Coimbatore, Tamil Nadu, India</p>
+    </div>
+    <div>
+      <h5>Quick Links</h5>
+        <p class="mt-6"><a href="#courses">Courses</a></p>
+        <p><a href="#offers">What We Offer</a></p>
+        <p><a href="#visit">Book a Visit</a></p>
+        <p><a href="about.html">About</a></p>
+    </div>
+    <div>
+      <h5>Policies</h5>
+        <p class="mt-6"><a href="#">Privacy Policy</a></p>
+        <p><a href="#">Terms of Use</a></p>
+        <p><a href="#">Accessibility</a></p>
+    </div>
+  </div>
+   <div class="container copyright">© 2025 COE — Hybrid & Electric Vehicles, KPRIET</div>
+</footer>
+
+<script>
+const gallery = document.getElementById('gallery');
+const anchor = document.getElementById('details-anchor');
+let openId = null;
+
+const sections = {
+  sec1: `
+  <section class="section show reveal">
+    <div class="media">
+      <span class="s-tag">Page 14</span>
+      <img src="assests/img_level_1_1.jpg" alt="EV Awareness">
+    </div>
+    <div class="text">
+      <div class="kicker">IMI LEVEL 1</div>
+      <h2>IMI International Level 1 Award in Electric/Hybrid Vehicle Awareness</h2>
+      <div class="badges">
+        <span class="badge">Level: 1</span>
+        <span class="badge">Ref: INT-EHV1-A-23</span>
+        <span class="badge">Subject: Electric/Hybrid</span>
+        <span class="badge">Type: International</span>
+      </div>
+      <p>This entry qualification gives a broad awareness of EV/Hybrid systems, hazards and safe conduct for non-technical and technical staff entering an EV-enabled workplace.</p>
+      <ul class="s-list">
+        <li><span class="s-bullet"></span><span>Identify vehicle types: BEV, HEV, PHEV, FCEV.</span></li>
+        <li><span class="s-bullet"></span><span>Recognise hazards of high-energy battery systems.</span></li>
+        <li><span class="s-bullet"></span><span>Apply safe isolation, signage, PPE and charging etiquette.</span></li>
+      </ul>
+    </div>
+  </section>`,
+  sec2: `
+  <section class="section reverse show reveal">
+    <div class="text">
+      <div class="kicker">IMI LEVEL 2.1</div>
+      <h2>IMI International Level 2.1 Award in EV Hazard Management – Emergency & Recovery</h2>
+      <div class="badges">
+        <span class="badge">Level: 2</span>
+        <span class="badge">Ref: INT-EHVHM2-A</span>
+        <span class="badge">Operations: Incident/Recovery</span>
+        <span class="badge">Assessment: Online + Oral</span>
+      </div>
+      <p>Designed to equip first responders and roadside operators with critical hazard-spotting and mitigation skills around electrified vehicles.</p>
+      <ul class="s-list">
+        <li><span class="s-bullet"></span><span>Scene assessment, cordon setup, HV labelling.</span></li>
+        <li><span class="s-bullet"></span><span>Fire/submersion considerations & runaway indicators.</span></li>
+        <li><span class="s-bullet"></span><span>Towing, lifting and disable procedures.</span></li>
+      </ul>
+    </div>
+    <div class="media">
+      <span class="s-tag">Page 15</span>
+      <img src="assests/img_level_2_1_2.jpg" alt="Emergency & Recovery">
+    </div>
+  </section>`,
+  sec3: `
+  <section class="section show reveal">
+    <div class="media">
+      <span class="s-tag">Page 16</span>
+      <img src="assests/img_level_2_2_2.jpg" alt="Routine Maintenance">
+    </div>
+    <div class="text">
+      <div class="kicker">IMI LEVEL 2.2</div>
+      <h2>IMI International Level 2.2 Award in EV Routine Maintenance Activities</h2>
+      <div class="badges">
+        <span class="badge">Level: 2</span>
+        <span class="badge">Ref: INT-EHVRM2-A-23</span>
+        <span class="badge">Workshop: Maintenance</span>
+        <span class="badge">Type: International</span>
+      </div>
+      <p>For technicians with L2 vehicle maintenance knowledge who will prepare and work around electrified vehicles without opening HV battery packs.</p>
+      <ul class="s-list">
+        <li><span class="s-bullet"></span><span>System architecture: inverter, DC/DC, charger, BMS.</span></li>
+        <li><span class="s-bullet"></span><span>Risk assessment, lock-out/tag-out, safe reset.</span></li>
+        <li><span class="s-bullet"></span><span>Service ops: coolant service, regen brake service.</span></li>
+      </ul>
+    </div>
+  </section>`
+};
+
+function closeOpen(){
+  if(openId){
+    anchor.innerHTML = '';
+    openId = null;
+  }
+}
+ 
+gallery.addEventListener('click', (e)=>{
+  const card = e.target.closest('.card');
+  if(!card) return;
+  const id = card.dataset.target;
+  if(openId === id){ closeOpen(); return; }
+  closeOpen();
+  anchor.innerHTML = sections[id];
+  openId = id;
+  anchor.scrollIntoView({behavior:'smooth', block:'start'});
+});
+ document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll(".nav-link");
+    const current = window.location.pathname.split("/").pop();
+    const toggleBtn = document.querySelector(".menu-toggle");
+    const navList = document.querySelector(".nav ul");
+
+    // Active link highlight
+    links.forEach(link => {
+      if (link.getAttribute("href") === current) {
+        link.classList.add("active");
+      }
+    });
+
+    // Toggle mobile menu
+    toggleBtn.addEventListener("click", () => {
+      navList.classList.toggle("open");
+      toggleBtn.textContent = navList.classList.contains("open") ? "✖" : "☰";
+    });
+  });
+/* Scroll reveal */
+function revealOnScroll() {
+  document.querySelectorAll('.reveal').forEach(el=>{
+    const rect = el.getBoundingClientRect();
+    if(rect.top < window.innerHeight - 80){ el.classList.add('active'); }
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+</script>
+</body>
+</html>

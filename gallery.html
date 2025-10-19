@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KPRIET CoE – Gallery</title>
+
+<!--
+  KPRIET CoE – GALLERY PAGE
+  Notes for integration:
+  - Keep this file as gallery.html and link it from your header nav.
+  - Images are referenced from ./assets/gallery/*. Replace with brochure images (Pages 16, 17, 18) accordingly.
+  - Color palette inherits your site CSS variables; safe fallbacks are provided below.
+  - No external libraries required. Pure HTML/CSS/JS with modern features.
+-->
+
+<style>
+  /* ==========================================================
+     0) THEME, RESET, TOKENS
+     ========================================================== */
+  :root{
+    /* Will use your site's palette if already declared; otherwise fallback */
+    --brand: var(--blue-600, #2563eb);
+    --brand-2: var(--blue-500, #3b82f6);
+    --brand-3: var(--blue-400, #60a5fa);
+    --accent: var(--amber-500, #f59e0b);
+    --accent-2: var(--amber-400, #fbbf24);
+    --bg: var(--slate-900, #0b1220);
+    --bg-2: var(--slate-800, #0f172a);
+    --surface: var(--slate-900, #0b1220);
+    --card: rgba(255,255,255,.04);
+    --muted: #9aa4b2;
+    --text: #e6edf6;
+    --text-2: #d1d8e3;
+    --ring: rgba(99,102,241,.5);
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --radius: 20px;
+    --blue-950:#00142f;
+      --blue-900:#001b44;
+      --blue-800:#002a66;
+      --blue-700:#003366;
+      --blue-650:#003d7a;
+      --blue-600:#004080;
+      --blue-500:#0066cc;
+      --blue-400:#3b82f6;
+      --saffron:#f4a100;     /* buttons */
+      --green:#20b15a;       /* hover */
+      --text:#101216;        /* black-ish */
+      --muted:#6b7280;       /* gray */
+      --bg:#f6fbff;          /* page bg */
+      --card:#ffffff;        /* card bg */
+      --chip:#eef6ff;        /* tag bg */
+      --shadow:0 14px 40px rgba(0,0,0,.12);
+      --shadow-sm:0 10px 22px rgba(0,0,0,.10);
+      --radius:16px;
+      --radius-sm:12px;
+      --radius-lg:22px;
+      --speed:2.2s; 
+  }
+  *,*::before,*::after{ box-sizing: border-box; }
+  html,body{ height:100%; }
+  body{
+    margin:0; color:var(--text); background: radial-gradient(1200px 800px at 10% -10%, rgba(37,99,235,.15), transparent 40%),
+    radial-gradient(800px 600px at 90% 10%, rgba(245,158,11,.12), transparent 40%),
+    linear-gradient(180deg,var(--bg),var(--bg-2));
+    font: 15px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  a{ color:inherit; text-decoration:none; }
+  img{ display:block; max-width:100%; height:auto; }
+  button{ font:inherit; color:inherit; }
+/* ---------------------------------------
+       Header (two-row: logo+heading, then nav)
+    --------------------------------------- */
+    header {
+  position: sticky;
+  top: 0;
+
+  z-index: 50;
+ background: linear-gradient(90deg,#007bff,#0056b3);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+  backdrop-filter: saturate(1.2) blur(4px);
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* for logo + title + hamburger */
+  padding: 10px 16px;
+  background: var(--blue-700);   /* ✅ add this line */
+  color: #fff;                   /* ✅ text stays white */
+}
+.top-bar img {
+  height: 48px;
+  transition: transform .3s;
+}
+.top-bar img:hover {
+  transform: rotate(-4deg) scale(1.05);
+}
+.top-bar h1 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+/* Hamburger */
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+  display: none; /* hidden on desktop */
+}
+
+/* Nav */
+nav.nav {
+ background: linear-gradient(90deg,#007bff,#0056b3);
+}
+.nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  justify-content: center;
+}
+.nav a {
+  padding: 8px 2px;
+  color: #fff;
+  font-weight: 600;
+  position: relative;
+  text-decoration: none;
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 0;
+  background: var(--green);
+  transition: width .3s ease;
+}
+.nav a:hover {
+  color: #c8ffe5;
+}
+.nav a:hover::after {
+  width: 100%;
+}
+.nav a.active {
+  color: #a6e3ff;
+}
+
+/* ===== Responsive Styles ===== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    display: none; /* hidden by default */
+  }
+
+  .nav ul.open {
+    display: flex;
+    animation: fadeIn .3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+}
+/* ==========================================================
+       2) SOCIAL RAIL (fixed right, no gap)
+    =========================================================== */
+    .social-rail{
+      
+      position:fixed;right:0;top:50%;transform:translateY(-50%);
+      display:flex;flex-direction:column;gap:0;z-index:950;
+      border-radius:10px 0 0 10px;overflow:hidden;box-shadow:var(--shadow);
+    }
+    .soc{
+      width:46px;height:46px;display:grid;place-items:center;
+      background:orange;transition:.25s;border-left:2px solid transparent
+    }
+    .soc:hover{transform:scale(1.05);filter:saturate(1.12)}
+    .soc.instagram{color:#e1306c}
+    .soc.facebook{color:#1877f2}
+    .soc.twitter{color:#1da1f2}
+    .soc.whatsapp{color:#25d366}
+    .soc.query{color:#004080}
+    .soc + .soc{border-top:1px solid #eaeef4}
+
+  /* ==========================================================
+     2) PAGE HERO & CONTROLS
+     ========================================================== */
+  .hero{
+    max-width:1200px; margin:28px auto 16px; padding:0 18px 10px;
+  }
+  .hero .title{ font-size:34px; margin:0 0 10px; letter-spacing:.2px; }
+  .hero .subtitle{ margin:0; color:var(--text-2); opacity:.85; }
+
+  .controls{
+    max-width:1200px; margin:14px auto 16px; padding:0 18px 6px; display:flex; flex-wrap:wrap; gap:10px;
+  }
+  .control-card{ 
+    background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius: var(--radius); padding:10px; display:flex; align-items:center; gap:10px; box-shadow: var(--shadow);
+  }
+  .search{ flex:1 1 260px; }
+  .search input{ width:100%; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background:rgba(10,15,25,.7); color:var(--text);
+    outline:none; transition:.25s ease; box-shadow: inset 0 0 0 1px transparent;
+  }
+  .search input:focus{ box-shadow: inset 0 0 0 1px var(--ring), 0 0 0 4px rgba(99,102,241,.2); }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{ padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04);
+    cursor:pointer; user-select:none; transition:.25s ease; font-weight:600; font-size:13px;
+  }
+  .chip:hover{ background:rgba(255,255,255,.07); }
+  .chip.active{ background: linear-gradient(135deg,var(--brand),var(--brand-2)); color:#071426; border-color:transparent; }
+
+  .sort{ display:flex; align-items:center; gap:8px; }
+  select{ background:rgba(10,15,25,.7); border:1px solid rgba(255,255,255,.12); color:var(--text); padding:10px 12px; border-radius:12px; }
+  .toggle{ display:flex; gap:6px; align-items:center; }
+  .toggle input{ width:42px; height:22px; appearance:none; background:rgba(255,255,255,.18); border-radius:999px; position:relative; outline:none; cursor:pointer; transition:.25s ease; }
+  .toggle input:checked{ background: linear-gradient(135deg,var(--brand),var(--brand-2)); }
+  .toggle input::after{ content:""; position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:999px; background:#fff; transform:translateX(0); transition:.25s ease; }
+  .toggle input:checked::after{ transform:translateX(20px); }
+
+  /* ==========================================================
+     3) MASONRY GRID GALLERY
+     ========================================================== */
+  .gallery-wrap{ max-width:1200px; margin:0 auto; padding:8px 18px 120px; }
+  .masonry{ column-count: 4; column-gap: 16px; }
+  @media (max-width:1100px){ .masonry{ column-count:3; } }
+  @media (max-width:800px){ .masonry{ column-count:2; } }
+  @media (max-width:560px){ .masonry{ column-count:1; } }
+
+  .card{
+    break-inside: avoid; margin:0 0 16px; border-radius:18px; overflow:hidden; background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); box-shadow: var(--shadow); position:relative; transform: translateY(10px) scale(.98); opacity:0;
+    transition: transform .5s cubic-bezier(.22,1,.36,1), opacity .5s ease;
+  }
+  .card.show{ transform: translateY(0) scale(1); opacity:1; }
+  .thumb{ position:relative; overflow:hidden; aspect-ratio: 4/3; background: #0e1626; }
+  .thumb img{ width:100%; height:100%; object-fit:cover; transform: scale(1.04); transition: transform .6s cubic-bezier(.22,1,.36,1), filter .3s ease; filter: saturate(1.05) contrast(1.04); }
+  .card:hover .thumb img{ transform: scale(1.08); }
+  .badge{ position:absolute; top:10px; left:10px; background:rgba(0,0,0,.6); border:1px solid rgba(255,255,255,.18); padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px; backdrop-filter: blur(4px); }
+  .meta{ padding:12px 12px 14px; display:flex; align-items:center; gap:12px; }
+  .meta .title{ margin:0; font-weight:700; letter-spacing:.2px; }
+  .meta .desc{ margin:2px 0 0; font-size:13px; color:var(--muted); }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .tag{ font-size:12px; padding:6px 8px; border:1px dashed rgba(255,255,255,.2); border-radius:999px; color:var(--text-2); opacity:.9; }
+  .actions{ margin-left:auto; display:flex; gap:8px; }
+  .btn{ padding:8px 10px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); cursor:pointer; transition:.25s ease; }
+  .btn:hover{ background:rgba(255,255,255,.08); }
+
+  /* ==========================================================
+     4) LIGHTBOX (Modal Viewer)
+     ========================================================== */
+  .lightbox{
+    position: fixed; inset:0; display:none; place-items:center; background: radial-gradient(900px 600px at 50% 0%, rgba(37,99,235,.15), transparent 40%), rgba(4,7,15,.8);
+    z-index:100; padding:20px; backdrop-filter: blur(4px);
+  }
+  .lightbox.open{ display:grid; animation: fadeIn .2s ease; }
+  @keyframes fadeIn{ from{ opacity:0 } to{ opacity:1 } }
+
+  .viewer{ width:min(1100px, 96vw); height:min(74vh, 760px); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.1); border-radius:22px; box-shadow: var(--shadow); display:grid; grid-template-rows:auto 1fr auto; overflow:clip; }
+  .viewer header{ position:relative; inset:auto; background: linear-gradient(180deg, rgba(2,6,23,.9), rgba(2,6,23,.5)); border-bottom:1px solid rgba(255,255,255,.08); }
+  .viewer .bar{ display:flex; align-items:center; gap:10px; padding:12px 14px; }
+  .viewer .bar .ttl{ font-weight:800; letter-spacing:.2px; }
+  .viewer .stage{ position:relative; background:#0a0f1c; display:grid; place-items:center; }
+  .viewer .stage img{ max-width:100%; max-height:100%; object-fit:contain; }
+  .v-ctrls{ display:flex; align-items:center; gap:8px; margin-left:auto; }
+  .v-btn{ padding:8px 10px; border-radius:12px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.06); cursor:pointer; }
+  .v-btn:hover{ background:rgba(255,255,255,.09); }
+  .viewer footer{ padding:10px 14px; display:flex; gap:10px; align-items:center; border-top:1px solid rgba(255,255,255,.08); background:linear-gradient(180deg, rgba(2,6,23,.5), rgba(2,6,23,.7)); }
+  .progress{ height:6px; background:rgba(255,255,255,.12); border-radius:999px; overflow:hidden; flex:1; position:relative; }
+  .progress .bar{ position:absolute; inset:0 auto 0 0; width:0%; background: linear-gradient(90deg, var(--brand), var(--brand-3)); }
+
+  .nav-btn{ position:absolute; top:50%; transform:translateY(-50%); background:rgba(0,0,0,.5); border:1px solid rgba(255,255,255,.2); padding:10px 12px; border-radius:12px; cursor:pointer; }
+  .nav-btn:hover{ background:rgba(0,0,0,.65); }
+  .nav-btn.prev{ left:10px; }
+  .nav-btn.next{ right:10px; }
+
+  /* ==========================================================
+     5) FOOTER
+     ========================================================== */
+  footer{
+    border-top:1px solid rgba(255,255,255,.08);
+    background: linear-gradient(180deg, rgba(2,6,23,.6), rgba(2,6,23,.9));
+  }
+  .foot{ max-width:1200px; margin:0 auto; padding:26px 18px; color:var(--text-2); display:grid; grid-template-columns: 1fr auto; gap:14px; }
+  .foot small{ opacity:.8; }
+
+  /* ==========================================================
+     6) UTILITIES
+     ========================================================== */
+  .hide{ display:none !important; }
+  .pill{ padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); }
+  .kbd{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:12px; padding:4px 6px; border-radius:6px; background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.16); }
+</style>
+</head>
+<body>
+
+  <!-- ========================================================
+       SOCIAL RAIL (fixed, right-center, no gap)
+  ========================================================= -->
+  <div class="social-rail" aria-label="Quick Links">
+    <a class="" href="registration-form.html" title="" aria-label="Instagram"><i class="">Apply</i></a>
+    <a class="soc instagram" href="#" title="Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a class="soc facebook" href="#" title="Facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a class="soc twitter" href="#" title="Twitter/X" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+    <a class="soc whatsapp" href="#" title="WhatsApp Community" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <button class="soc query" id="openQuery" title="Quick Query" aria-label="Quick Query"><i class="fa-regular fa-envelope"></i></button>
+  </div>
+<!-- ===================================== -->
+  <!-- Header (two rows)                     -->
+  <!-- ===================================== -->
+  <header>
+  <div class="top-bar">
+    <img src="assets/logo.png" alt="Logo" />
+    <h1 style="font-size: 1.1rem;">Centre of Excellence — Hybrid & Electric Vehicles (KPRIET) </h1>
+
+    <!-- Hamburger Button -->
+    <button class="menu-toggle" aria-label="Toggle Menu">
+      ☰
+    </button>
+  </div>
+
+  <nav class="nav">
+    <ul style="font-size: 1.1rem;">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="courses.html" class="nav-link">Courses</a></li>
+      <li><a href="events.html" class="nav-link">Events</a></li>
+      <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+  <!-- =============================== HERO ================================ -->
+  <section class="hero">
+    <h2 class="title">Gallery</h2>
+    <p class="subtitle">Curated highlights from our Brochure (Pages 16–18): Labs, Workshops, IMI Certifications, Events & Achievements. Use filters, search, and fullscreen lightbox.</p>
+  </section>
+
+  <!-- =========================== CONTROLS BAR =========================== -->
+  <section class="controls" aria-label="Gallery controls">
+    <div class="control-card search">
+      <input id="q" type="search" placeholder="Search (e.g. 'IMI Level 1', 'Workshop', 'EV', 'Lab') — Press Enter" aria-label="Search gallery" />
+    </div>
+
+    <div class="control-card chips" role="group" aria-label="Filter categories">
+      <div class="chip active" data-filter="all">All</div>
+      <div class="chip" data-filter="labs">Labs</div>
+      <div class="chip" data-filter="workshops">Workshops</div>
+      <div class="chip" data-filter="certifications">IMI Certifications</div>
+      <div class="chip" data-filter="events">Events</div>
+      <div class="chip" data-filter="achievements">Achievements</div>
+    </div>
+
+    <div class="control-card sort">
+      <label for="sort">Sort</label>
+      <select id="sort">
+        <option value="recent">Most Recent</option>
+        <option value="az">Title A → Z</option>
+        <option value="za">Title Z → A</option>
+      </select>
+    </div>
+
+    <div class="control-card toggle" title="Autoplay slideshow in lightbox">
+      <input type="checkbox" id="autoplay" />
+      <label for="autoplay">Autoplay</label>
+    </div>
+  </section>
+
+  <!-- =========================== GALLERY GRID =========================== -->
+  <main class="gallery-wrap">
+    <div id="grid" class="masonry" aria-live="polite"></div>
+  </main>
+
+  <!-- ============================== LIGHTBOX ============================ -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="viewer" role="document">
+      <header>
+        <div class="bar">
+          <strong class="ttl">Preview</strong>
+          <span class="pill" id="lbTag">—</span>
+          <div class="v-ctrls">
+            <button class="v-btn" id="btnDownload" title="Download image">Download</button>
+            <button class="v-btn" id="btnFull" title="Toggle fullscreen">Fullscreen</button>
+            <button class="v-btn" id="btnClose" title="Close (Esc)">Close</button>
+          </div>
+        </div>
+      </header>
+      <div class="stage">
+        <button class="nav-btn prev" id="btnPrev" title="Previous (←)">⟨</button>
+        <img id="lbImg" alt="Gallery image preview" />
+        <button class="nav-btn next" id="btnNext" title="Next (→)">⟩</button>
+      </div>
+      <footer>
+        <div id="lbTitle">—</div>
+        <div class="progress" aria-hidden="true"><div class="bar" id="progressBar"></div></div>
+        <div id="lbIndex">0 / 0</div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- =============================== FOOTER ============================= -->
+  <footer>
+    <div class="foot">
+      <small>© <span id="yr"></span> KPRIET Centre of Excellence. All rights reserved.</small>
+      <div>
+        <span class="kbd">←</span> / <span class="kbd">→</span> navigate &nbsp;•&nbsp;
+        <span class="kbd">Esc</span> close &nbsp;•&nbsp; <span class="kbd">F</span> fullscreen
+      </div>
+    </div>
+  </footer>
+
+<script>
+// ============================================================
+//  DATA – Replace sources with your brochure assets (Pages 16–18)
+// ============================================================
+const DATA = [
+  // Tip: put brochure-aligned captions and tags to improve search/filter
+  {src:"assets/gallery/img-01.jpg", w:1200, h:800, title:"EV Lab – Diagnostic Bay", cat:"labs", tags:["EV","Lab","Equipment"], date:"2025-06-15"},
+  {src:"assets/gallery/img-02.jpg", w:1200, h:800, title:"High Voltage Training Setup", cat:"labs", tags:["HV","Safety","Training"], date:"2025-06-15"},
+  {src:"assets/gallery/img-03.jpg", w:1200, h:800, title:"Battery Testing Bench", cat:"labs", tags:["Battery","BMS","Testing"], date:"2025-06-16"},
+  {src:"assets/gallery/img-04.jpg", w:1200, h:800, title:"Workshop – IMI Level 1 Awareness", cat:"workshops", tags:["IMI","Level 1","Awareness"], date:"2025-07-05"},
+  {src:"assets/gallery/img-05.jpg", w:1200, h:800, title:"Workshop – Hands-on EV Safety", cat:"workshops", tags:["Safety","PPE","Hands-on"], date:"2025-07-05"},
+  {src:"assets/gallery/img-06.jpg", w:1200, h:800, title:"IMI Certification – Candidate Assessment", cat:"certifications", tags:["IMI","Assessment","Certification"], date:"2025-07-20"},
+  {src:"assets/gallery/img-07.jpg", w:1200, h:800, title:"IMI Level 2 Training Session", cat:"certifications", tags:["IMI","Level 2","Training"], date:"2025-07-21"},
+  {src:"assets/gallery/img-08.jpg", w:1200, h:800, title:"Guest Lecture – Industry Expert", cat:"events", tags:["Talk","Industry","Guest"], date:"2025-05-30"},
+  {src:"assets/gallery/img-09.jpg", w:1200, h:800, title:"Inauguration – Centre of Excellence", cat:"events", tags:["Inauguration","Chief Guest"], date:"2025-04-16"},
+  {src:"assets/gallery/img-10.jpg", w:1200, h:800, title:"Student Achievement – EV Hackathon Winners", cat:"achievements", tags:["Winners","Hackathon","Team"], date:"2025-03-29"},
+  {src:"assets/gallery/img-11.jpg", w:1200, h:800, title:"Research Poster Showcase", cat:"events", tags:["Research","Poster","Showcase"], date:"2025-06-28"},
+  {src:"assets/gallery/img-12.jpg", w:1200, h:800, title:"Charging Station – Setup & Calibration", cat:"labs", tags:["Charging","Station","Calibration"], date:"2025-06-17"},
+  {src:"assets/gallery/img-13.jpg", w:1200, h:800, title:"Workshop – EV Component Tear-down", cat:"workshops", tags:["Motor","Inverter","Hands-on"], date:"2025-07-06"},
+  {src:"assets/gallery/img-14.jpg", w:1200, h:800, title:"IMI – Badge Distribution", cat:"certifications", tags:["Badge","IMI","Award"], date:"2025-07-21"},
+  {src:"assets/gallery/img-15.jpg", w:1200, h:800, title:"Faculty Development Program (FDP)", cat:"events", tags:["FDP","Training","Faculty"], date:"2025-05-18"},
+  {src:"assets/gallery/img-16.jpg", w:1200, h:800, title:"EV Safety Gear – PPE Display", cat:"labs", tags:["PPE","Safety","Checklist"], date:"2025-06-18"},
+  {src:"assets/gallery/img-17.jpg", w:1200, h:800, title:"Student Project – Battery Pack Design", cat:"achievements", tags:["Project","Battery","Innovation"], date:"2025-07-10"},
+  {src:"assets/gallery/img-18.jpg", w:1200, h:800, title:"Community Outreach – EV Awareness", cat:"events", tags:["Outreach","Awareness","Community"], date:"2025-05-01"},
+];
+
+// ============================================================
+//  STATE
+// ============================================================
+let filtered = [...DATA];
+let currentIndex = 0; // lightbox index inside `filtered`
+let autoplay = false;
+let autoplayTimer = null;
+
+// ============================================================
+//  HELPERS
+// ============================================================
+const $ = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+function el(tag, attrs={}, children=[]) {
+  const node = document.createElement(tag);
+  Object.entries(attrs).forEach(([k,v])=>{
+    if(k === 'class') node.className = v; else if(k === 'dataset') Object.assign(node.dataset, v); else if(k.startsWith('on')) node.addEventListener(k.slice(2), v); else if(k==='html') node.innerHTML=v; else node.setAttribute(k,v);
+  });
+  children.forEach(c => node.append(c));
+  return node;
+}
+
+function formatDate(d){
+  const dt = new Date(d);
+  return dt.toLocaleDateString(undefined,{ year:'numeric', month:'short', day:'numeric' });
+}
+
+function sortData(arr, mode){
+  const a = [...arr];
+  if(mode==='recent') return a.sort((x,y)=> new Date(y.date) - new Date(x.date));
+  if(mode==='az') return a.sort((x,y)=> x.title.localeCompare(y.title));
+  if(mode==='za') return a.sort((x,y)=> y.title.localeCompare(x.title));
+  return a;
+}
+
+// ============================================================
+//  RENDER GALLERY
+// ============================================================
+const grid = $('#grid');
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    }
+  })
+},{ threshold: .15 });
+
+function render(items){
+  grid.innerHTML = '';
+  sortData(items, $('#sort').value).forEach((item, idx)=>{
+    const card = el('article', {class:'card', dataset:{ idx }}, [
+      el('div', {class:'thumb'}, [
+        el('span', {class:'badge', html: item.cat.replace(/^(.)/, m=>m.toUpperCase())}),
+        // Lazy image
+        el('img', {alt:item.title, loading:'lazy', decoding:'async', src:item.placeholder || '', dataset:{ src:item.src }})
+      ]),
+      el('div', {class:'meta'}, [
+        el('div', {}, [
+          el('h3', {class:'title', html:item.title}),
+          el('p', {class:'desc', html: `${formatDate(item.date)} • ${item.tags.join(' · ')}`}),
+          el('div', {class:'tags'}, item.tags.map(t=> el('span', {class:'tag', html:t})))
+        ]),
+        el('div', {class:'actions'}, [
+          el('button', {class:'btn', title:'View', onClick:()=> openLightbox(indexOfItem(item))}, [document.createTextNode('View')]),
+          el('button', {class:'btn', title:'Copy link', onClick:()=> copyLink(indexOfItem(item))}, [document.createTextNode('Share')])
+        ])
+      ])
+    ]);
+    grid.append(card);
+    observer.observe(card);
+  });
+
+  // Lazy load images using IntersectionObserver
+  const io = new IntersectionObserver((ents)=>{
+    ents.forEach(e=>{
+      if(e.isIntersecting){
+        const img = e.target;
+        img.src = img.dataset.src; // assign real source
+        io.unobserve(img);
+      }
+    })
+  }, {rootMargin:'120px'});
+  $$('.thumb img', grid).forEach(img=> io.observe(img));
+}
+
+function indexOfItem(item){
+  return filtered.findIndex(x=> x.src===item.src);
+}
+
+// ============================================================
+//  FILTERS & SEARCH
+// ============================================================
+function applyFilters(){
+  const activeChip = $('.chip.active');
+  const q = $('#q').value.trim().toLowerCase();
+  const cat = activeChip ? activeChip.dataset.filter : 'all';
+  filtered = DATA.filter(x=> (cat==='all' || x.cat===cat));
+  if(q){
+    filtered = filtered.filter(x=>
+      x.title.toLowerCase().includes(q) ||
+      x.tags.join(' ').toLowerCase().includes(q) ||
+      x.cat.toLowerCase().includes(q)
+    );
+  }
+  render(filtered);
+}
+
+// Chip clicks
+$$('.chip').forEach(c=> c.addEventListener('click', ()=>{
+  $$('.chip').forEach(x=> x.classList.remove('active'));
+  c.classList.add('active');
+  applyFilters();
+}));
+
+// Search
+$('#q').addEventListener('keydown', (e)=>{ if(e.key==='Enter') applyFilters(); });
+
+// Sort
+$('#sort').addEventListener('change', ()=> render(filtered));
+
+// Autoplay toggle
+$('#autoplay').addEventListener('change', (e)=> autoplay = e.target.checked);
+
+// ============================================================
+//  LIGHTBOX
+// ============================================================
+const lb = $('#lightbox');
+const lbImg = $('#lbImg');
+const lbTitle = $('#lbTitle');
+const lbTag = $('#lbTag');
+const lbIndex = $('#lbIndex');
+const progressBar = $('#progressBar');
+
+function openLightbox(idx){
+  currentIndex = idx;
+  updateLightbox();
+  lb.classList.add('open');
+  lb.setAttribute('aria-hidden','false');
+  if(autoplay) startAutoplay();
+}
+
+function closeLightbox(){
+  lb.classList.remove('open');
+  lb.setAttribute('aria-hidden','true');
+  stopAutoplay();
+}
+
+function updateLightbox(){
+  const it = filtered[currentIndex];
+  if(!it) return;
+  lbImg.src = it.src; lbImg.width = it.w; lbImg.height = it.h;
+  lbTitle.textContent = `${it.title} • ${formatDate(it.date)}`;
+  lbTag.textContent = it.cat;
+  lbIndex.textContent = `${currentIndex+1} / ${filtered.length}`;
+  resetProgress();
+}
+
+function next(){ currentIndex = (currentIndex+1) % filtered.length; updateLightbox(); }
+function prev(){ currentIndex = (currentIndex-1+filtered.length) % filtered.length; updateLightbox(); }
+
+$('#btnNext').addEventListener('click', next);
+$('#btnPrev').addEventListener('click', prev);
+$('#btnClose').addEventListener('click', closeLightbox);
+
+// Keyboard controls
+window.addEventListener('keydown', (e)=>{
+  if(!lb.classList.contains('open')) return;
+  if(e.key==='Escape') closeLightbox();
+  if(e.key==='ArrowRight') next();
+  if(e.key==='ArrowLeft') prev();
+  if(e.key.toLowerCase()==='f') toggleFullscreen();
+});
+
+// Click outside to close
+lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
+
+// Download
+$('#btnDownload').addEventListener('click', ()=>{
+  const it = filtered[currentIndex];
+  const a = document.createElement('a');
+  a.href = it.src; a.download = it.title.replace(/\s+/g,'-').toLowerCase()+'.jpg';
+  document.body.appendChild(a); a.click(); a.remove();
+});
+
+// Fullscreen
+$('#btnFull').addEventListener('click', toggleFullscreen);
+function toggleFullscreen(){
+  const elem = $('.viewer');
+  if(!document.fullscreenElement){ elem.requestFullscreen?.(); }
+  else{ document.exitFullscreen?.(); }
+}
+
+document.addEventListener('fullscreenchange', ()=>{
+  $('#btnFull').textContent = document.fullscreenElement? 'Exit Fullscreen' : 'Fullscreen';
+});
+
+// Autoplay timer & progress
+function startAutoplay(){ stopAutoplay(); tick(); }
+function stopAutoplay(){ if(autoplayTimer){ clearTimeout(autoplayTimer); autoplayTimer=null; } resetProgress(true); }
+function tick(){
+  // 5s per slide with progress bar animation
+  let start = performance.now();
+  const D = 5000;
+  function frame(t){
+    const p = Math.min(1, (t-start)/D);
+    progressBar.style.width = (p*100).toFixed(2)+'%';
+    if(p<1){ autoplayTimer = requestAnimationFrame(frame); }
+    else { next(); if(autoplay) tick(); }
+  }
+  autoplayTimer = requestAnimationFrame(frame);
+}
+function resetProgress(clear){ progressBar.style.width = clear? '0%' : '0%'; }
+
+// Copy deep link
+async function copyLink(idx){
+  const it = filtered[idx];
+  const url = new URL(window.location.href);
+  url.hash = `img=${encodeURIComponent(it.title.replace(/\s+/g,'-').toLowerCase())}`;
+  try{
+    await navigator.clipboard.writeText(url.toString());
+    alert('Link copied to clipboard!');
+  }catch(e){
+    prompt('Copy this link:', url.toString());
+  }
+}
+
+// Deep link on load
+function openFromHash(){
+  const m = /img=([^&]+)/.exec(location.hash);
+  if(!m) return;
+  const slug = decodeURIComponent(m[1]);
+  const idx = filtered.findIndex(x=> x.title.replace(/\s+/g,'-').toLowerCase()===slug);
+  if(idx>-1) openLightbox(idx);
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+(function init(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  applyFilters();
+  openFromHash();
+})();
+
+</script>
+</body>
+</html>

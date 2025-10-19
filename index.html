@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ==========================================================
+       COE — HYBRID & ELECTRIC VEHICLES | KPRIET
+       Single-file index.html — inline CSS + JS (~1000 lines)
+       Palette: green (hover), saffron (buttons), blue shades (bg),
+       black/white (text). Smooth professional animations (2–3s).
+  =========================================================== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>COE — Hybrid & Electric Vehicles | KPRIET</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    /* ==========================================================
+       0) THEME, RESET, TOKENS
+    =========================================================== */
+    :root{
+      --blue-950:#00142f;
+      --blue-900:#001b44;
+      --blue-800:#002a66;
+      --blue-700:#003366;
+      --blue-650:#003d7a;
+      --blue-600:#004080;
+      --blue-500:#0066cc;
+      --blue-400:#3b82f6;
+      --saffron:#f4a100;     /* buttons */
+      --green:#20b15a;       /* hover */
+      --text:#101216;        /* black-ish */
+      --muted:#6b7280;       /* gray */
+      --bg:#f6fbff;          /* page bg */
+      --card:#ffffff;        /* card bg */
+      --chip:#eef6ff;        /* tag bg */
+      --shadow:0 14px 40px rgba(0,0,0,.12);
+      --shadow-sm:0 10px 22px rgba(0,0,0,.10);
+      --radius:16px;
+      --radius-sm:12px;
+      --radius-lg:22px;
+      --speed:2.2s;          /* animation speed ~2–3s */
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      overflow-x:hidden;
+      scroll-behavior:smooth;
+    }
+    img,video{max-width:100%;display:block}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:1200px;margin:0 auto;padding:0 16px}
+    .section{padding:70px 0}
+    .eyebrow{display:inline-block;font-size:.78rem;letter-spacing:.3px;color:#0ea5e9;background:#e0f2fe;padding:6px 10px;border-radius:999px;margin-bottom:10px}
+    .title{font-size:1.9rem;color:var(--blue-900);line-height:1.2;margin-bottom:10px}
+    .kicker{color:var(--muted);margin-bottom:26px}
+    .btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:12px;padding:12px 18px;font-weight:800;cursor:pointer;transition:.25s}
+    .btn-primary{background:var(--saffron);color:#fff;box-shadow:var(--shadow)}
+    .btn-primary:hover{background:var(--green);transform:translateY(-2px)}
+    .btn-outline{background:transparent;border:2px solid rgba(255,255,255,.65);color:#fff}
+    .btn-outline:hover{background:rgba(255,255,255,.12)}
+    .chip{display:inline-block;background:var(--chip);color:#0369a1;border:1px solid #cfe8ff;padding:6px 10px;border-radius:999px;font-weight:700;font-size:.8rem}
+
+    /* ==========================================================
+       1) FIXED HEADER (ROW 1: logo+heading, ROW 2: nav)
+    =========================================================== */
+    header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--blue-700);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+  backdrop-filter: saturate(1.2) blur(4px);
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+.top-bar img {
+  height: 48px;
+  transition: transform .3s;
+}
+.top-bar img:hover {
+  transform: rotate(-4deg) scale(1.05);
+}
+.top-bar h1 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+/* Hamburger */
+.menu-toggle {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+  display: none; /* hidden on desktop */
+}
+
+/* Nav */
+nav.nav {
+  background: linear-gradient(90deg,#007bff,#0056b3);
+}
+.nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  justify-content: center;
+}
+.nav a {
+  padding: 8px 2px;
+  color: #fff;
+  font-weight: 600;
+  position: relative;
+  text-decoration: none;
+}
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 0;
+  background: var(--green);
+  transition: width .3s ease;
+}
+.nav a:hover {
+  color: #c8ffe5;
+}
+.nav a:hover::after {
+  width: 100%;
+}
+.nav a.active {
+  color: #a6e3ff;
+}
+
+/* ===== Responsive Styles ===== */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    display: none; /* hidden by default */
+  }
+
+  .nav ul.open {
+    display: flex;
+    animation: fadeIn .3s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+}
+
+
+    /* ==========================================================
+       2) SOCIAL RAIL (fixed right, no gap)
+    =========================================================== */
+    .social-rail{
+      
+      position:fixed;right:0;top:50%;transform:translateY(-50%);
+      display:flex;flex-direction:column;gap:0;z-index:950;
+      border-radius:10px 0 0 10px;box-shadow:var(--shadow);
+    }
+    .soc{
+      width:46px;height:46px;display:grid;place-items:center;
+      background:orange;transition:.25s;border-left:2px solid transparent
+    }
+    
+    .soc:hover{transform:scale(1.05);filter:saturate(1.12)}
+    .soc.instagram{color:#e1306c}
+    .soc.facebook{color:#1877f2}
+    .soc.twitter{color:#1da1f2}
+    .soc.whatsapp{color:#25d366}
+    .soc.query{color:#004080}
+    .soc + .soc{border-top:1px solid #eaeef4}
+
+    /* ==========================================================
+       3) HERO (left content, right video) — animated background
+    =========================================================== */
+    .hero{
+      position:relative;overflow:hidden;color:#fff;
+      margin-bottom: 10px;
+      background: radial-gradient(1200px 400px at -10% -20%, #2563eb22, transparent),
+                  radial-gradient(1200px 400px at 120% 120%, #f59e0b22, transparent),
+                  linear-gradient(120deg,var(--blue-650),var(--blue-500));
+    }
+    .hero .orb{
+      position:absolute;border-radius:50%;filter:blur(60px);opacity:.28;pointer-events:none;
+      animation:floatY var(--speed) ease-in-out infinite;
+    }
+    .hero .orb.one{width:360px;height:360px;background:#42d392;top:-60px;left:-60px}
+    .hero .orb.two{width:420px;height:420px;background:#f9b24e;bottom:-120px;right:-80px;animation-delay:.6s}
+    .hero-inner{
+      display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;
+      padding:88px 0 74px; /* bigger hero */
+    }
+    .hero h2{font-size:2.2rem;line-height:1.15;margin-bottom:10px;text-shadow:0 2px 14px rgba(0,0,0,.25)}
+    .hero p{opacity:.96}
+    .cta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+    .hero-video{border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transform:translateZ(0)}
+    .hero-stats{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px}
+    .stat{background:rgba(255,255,255,.12);padding:10px 14px;border-radius:12px}
+    .stat strong{font-size:1.15rem}
+    @media (max-width:980px){.hero-inner{grid-template-columns:1fr;text-align:left}.hero .cta{justify-content:flex-start}}
+    @media (max-width:620px){.hero h2{font-size:1.8rem}}
+
+    @keyframes floatY{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-10px)}
+    }
+
+    /* ==========================================================
+       4) AFFILIATION (80% centered) + partners marquee
+       two-tone band at bottom
+    =========================================================== */
+    .affil {
+  background: #ffffff;       /* simple clean background */
+  position: relative;
+}
+
+.affil-wrap {
+  width: 100%;                /* 80% width of tab/window */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.partners {
+  text-align: left;
+}
+
+.partners-container {
+  padding-top: 15px;
+  width: 100%;                /* scrolling area width */
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.partners-scroll {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  animation: scroll 60s linear infinite;
+}
+
+.partner-logo {
+  display: inline-block;
+  height: 50px;
+  margin: 0 25px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+    /* ==========================================================
+       5) COURSES — image flip on hover (Level 1, 2.1, 2.2, Skill…)
+    =========================================================== */
+    .courses .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .course{perspective:1200px}
+    .flip{position:relative;height:300px;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+    .course:hover .flip{transform:rotateY(180deg)}
+    .front,.back{position:absolute;inset:0;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);backface-visibility:hidden}
+    .front img{width:100%;height:100%;object-fit:cover;filter:brightness(.78);transform:scale(1.08)}
+    .front .title{position:absolute;left:14px;bottom:14px;color:#fff;font-weight:800;background:rgba(0,0,0,.35);padding:8px 10px;border-radius:10px}
+    .back{background:#fff;transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;padding:18px}
+    .badge{display:inline-block;background:#e7fff2;color:var(--green);padding:5px 10px;border-radius:999px;font-size:.8rem;font-weight:800;margin-bottom:8px}
+    .back p{color:#1f2937}
+    @media (max-width:1140px){.courses .grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:680px){.courses .grid{grid-template-columns:1fr}}
+
+    /* ==========================================================
+       6) WHAT WE OFFER — icon tiles
+    =========================================================== */
+    .offer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .offer{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:22px;transition:.25s;position:relative;overflow:hidden}
+    .offer:hover{transform:translateY(-6px)}
+    .offer i{font-size:1.5rem;color:var(--blue-600)}
+    .offer h4{margin:8px 0;color:var(--blue-900)}
+    .offer p{color:#374151;font-size:.96rem}
+    .ribbon{position:absolute;right:-40px;top:12px;background:linear-gradient(90deg,var(--blue-600),var(--blue-500));color:#fff;transform:rotate(35deg);padding:8px 46px;font-weight:800;letter-spacing:.3px}
+    @media (max-width:1140px){.offer-grid{grid-template-columns:repeat(3,1fr)}}
+    @media (max-width:820px){.offer-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:520px){.offer-grid{grid-template-columns:1fr}}
+
+    /* ==========================================================
+       7) WHY HEV — content + image
+    =========================================================== */
+    .why .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:center}
+    .why .card{background:#fff;border-radius:16px;padding:20px;box-shadow:var(--shadow)}
+    .why ul{margin:10px 0 0 18px}
+    .why li{margin:6px 0}
+    .why img{border-radius:16px;box-shadow:var(--shadow)}
+    @media (max-width:980px){.why .grid{grid-template-columns:1fr}}
+
+    /* ==========================================================
+       8) LABS & FACILITIES — animated cards
+    =========================================================== */
+    .labs{background:linear-gradient(180deg,#f0f7ff 0%,#fff 100%)}
+    .lab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .lab-card{background:#fff;border-radius:16px;box-shadow:var(--shadow);overflow:hidden;transform:translateY(10px);opacity:0}
+    .lab-card.reveal{animation:revealUp var(--speed) ease forwards}
+    .lab-card img{height:180px;object-fit:cover;width:100%}
+    .lab-card .pad{padding:16px}
+    .lab-card h4{color:var(--blue-900);margin-bottom:6px}
+    .lab-card p{color:#374151}
+    @keyframes revealUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    @media (max-width:1080px){.lab-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:680px){.lab-grid{grid-template-columns:1fr}}
+
+    /* ==========================================================
+       9) HIGHLIGHTS / TIMELINE
+    =========================================================== */
+    .timeline{position:relative;padding-left:26px}
+    .timeline::before{content:"";position:absolute;left:8px;top:0;bottom:0;width:2px;background:#dbeafe}
+    .t-item{position:relative;margin:14px 0;padding-left:12px}
+    .t-item::before{content:"";position:absolute;left:-2px;top:8px;width:10px;height:10px;border-radius:50%;background:#3b82f6;box-shadow:0 0 0 4px #e0f2fe}
+    .t-item h4{color:var(--blue-900);margin-bottom:4px}
+    .t-item p{color:#374151}
+
+    /* ==========================================================
+       10) ACHIEVEMENTS / METRICS — counters
+    =========================================================== */
+    .metrics{background:linear-gradient(90deg,var(--blue-700),var(--blue-500));color:#fff;border-radius:16px;box-shadow:var(--shadow);padding:22px}
+    .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .metric{background:rgba(255,255,255,.08);padding:16px;border-radius:12px;text-align:center}
+    .metric .num{font-size:1.8rem;font-weight:900}
+    @media (max-width:920px){.metric-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:520px){.metric-grid{grid-template-columns:1fr}}
+
+    /* ==========================================================
+       11) BOOK A VISIT — CTA + image
+    =========================================================== */
+    .visit .wrap{
+      display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center
+    }
+    .visit .card{background:linear-gradient(90deg,var(--blue-600),var(--blue-500));color:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow)}
+    .visit .points{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+    .visit .points li{background:rgba(255,255,255,.12);padding:10px 12px;border-radius:10px}
+    .visit img{border-radius:16px;box-shadow:var(--shadow)}
+    @media (max-width:820px){.visit .wrap{grid-template-columns:1fr}.visit .points{grid-template-columns:1fr}}
+
+    /* ==========================================================
+       12) REVIEWS — custom slider
+    =========================================================== */
+    .reviews{background:#004d66;color:#eaf6ff;border-radius:16px;padding:30px;max-width:900px;margin:40px auto;text-align:center;position:relative}
+    .review-container{display:flex;align-items:center;justify-content:center;position:relative}
+    .review-wrapper{overflow:hidden;width:100%;display:flex;justify-content:center}
+    .rev-card{display:none;grid-template-columns:80px 1fr;gap:14px;padding:20px;border-radius:12px;background:rgba(255,255,255,.07);text-align:left;width:94%;margin:auto;animation:fadeIn .6s ease}
+    .rev-card.active{display:grid}
+    .rev-card img{width:80px;height:80px;border-radius:50%;object-fit:cover}
+    .rev-name{font-weight:800;color:#fff}
+    .nav-btn{background:var(--saffron);border:none;color:#fff;font-size:22px;padding:10px 14px;border-radius:50%;cursor:pointer;transition:.3s;box-shadow:var(--shadow-sm)}
+    .nav-btn:disabled{background:#9aa0a6;cursor:not-allowed}
+    .nav-btn:hover:not(:disabled){background:var(--green);transform:scale(1.08)}
+    @keyframes fadeIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:translateX(0)}}
+    @media (max-width:620px){.rev-card{grid-template-columns:1fr;text-align:center}.rev-card img{margin:0 auto 10px auto}}
+
+    /* ==========================================================
+       13) FAQ — accordion
+    =========================================================== */
+    .faq{max-width:980px;margin:0 auto}
+    .qa{background:#fff;border-radius:14px;box-shadow:var(--shadow);margin:12px 0;overflow:hidden}
+    .q{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;cursor:pointer;background:#f8fbff}
+    .q strong{font-weight:800}
+    .a{display:none;padding:0 16px 14px;color:#1f2937}
+    .qa.open .a{display:block}
+    .qa .icon{transition:transform .25s}
+    .qa.open .icon{transform:rotate(45deg)}
+
+    /* ==========================================================
+       14) NEWSLETTER / CONTACT STRIP
+    =========================================================== */
+    .newsletter{background:#0b1220;color:#eaf2ff;padding:34px 0}
+    .nl-wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:center}
+    .nl-form{display:flex;gap:10px;flex-wrap:wrap}
+    .nl-form input{flex:1;min-width:220px;padding:12px 14px;border-radius:12px;border:1.6px solid #244;outline:none;background:#0f1a2f;color:#eaf2ff}
+    .nl-form input::placeholder{color:#a9c1ff}
+    .nl-form button{border:0;border-radius:12px;padding:12px 18px;background:var(--saffron);color:#fff;font-weight:800;cursor:pointer}
+    .nl-form button:hover{background:var(--green)}
+    @media (max-width:900px){.nl-wrap{grid-template-columns:1fr}}
+
+    /* ==========================================================
+       15) FOOTER
+    =========================================================== */
+    footer{background:var(--blue-700);color:#fff;padding:30px 0 14px;margin-top:30px}
+    .foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+    .foot h5{margin-bottom:10px}
+    .foot a{color:#d6ecff}
+    .copyright{text-align:center;padding-top:14px;color:#d7ebff;border-top:1px solid rgba(255,255,255,.15);margin-top:16px}
+    @media (max-width:920px){.foot{grid-template-columns:1fr}}
+
+    /* ==========================================================
+       16) POPUPS (Register & Quick Query)
+    =========================================================== */
+    .popup{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:1200}
+    .popup.open{display:flex}
+    .popup-content{background:#fff;width:min(640px,92vw);border-radius:16px;box-shadow:var(--shadow);position:relative;padding:14px;animation:scaleIn .35s ease}
+    .close-btn{position:absolute;top:10px;right:12px;font-size:22px;color:#333;cursor:pointer}
+    iframe.form-frame{width:100%;height:560px;border:0;border-radius:12px}
+    @keyframes scaleIn{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1;}}
+
+    /*========
+    CHATBOT 
+    =======*/
+   #chatbot-frame {
+  position: fixed;
+  bottom: 20px;       /* 20px from bottom */
+  left: 20px;         /* 20px from left */
+  width: 320px;       /* default width */
+  height: 420px;      /* default height */
+  max-width: 90vw;    /* responsive on smaller screens */
+  max-height: 70vh;   /* responsive height */
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  display: none;      /* hidden initially */
+}
+
+/* Toggle button */
+#chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10000;
+  font-size: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  #chatbot-frame {
+    width: 90vw;
+    height: 70vh;
+    left: 5%;
+    bottom: 80px; /* leave space for button */
+  }
+}
+
+
+    /* ==========================================================
+       17) UTILITIES & EFFECT HELPERS
+    =========================================================== */
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+    .mt-6{margin-top:6px}.mt-10{margin-top:10px}.mt-14{margin-top:14px}.mt-18{margin-top:18px}.mt-24{margin-top:24px}.mt-30{margin-top:30px}.mt-40{margin-top:40px}
+    .float-y{animation:floatY var(--speed) ease-in-out infinite}
+    .observe{opacity:0;transform:translateY(16px); margin-left: 10px;}
+    .observe.show{opacity:1;transform:none;transition:all var(--speed) cubic-bezier(.2,.8,.2,1)}
+    .back-to-top{
+      position:fixed;right:18px;bottom:18px;width:44px;height:44px;border-radius:50%;
+      display:grid;place-items:center;border:0;background:var(--saffron);color:#fff;
+      box-shadow:var(--shadow);cursor:pointer;z-index:940;opacity:0;pointer-events:none;transition:.25s
+    }
+    .back-to-top.show{opacity:1;pointer-events:auto}
+    .divider{height:1px;background:linear-gradient(90deg,transparent,#cfe3ff,transparent);margin:18px 0}
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================
+       SOCIAL RAIL (fixed, right-center, no gap)
+  ========================================================= -->
+  <div class="social-rail" aria-label="Quick Links">
+    <a class="" href="registration-form.html" title="" aria-label="Instagram"><i class="">Apply</i></a>
+    <a class="soc instagram" href="#" title="Instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a class="soc facebook" href="#" title="Facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a class="soc twitter" href="#" title="Twitter/X" aria-label="Twitter/X"><i class="fa-brands fa-x-twitter"></i></a>
+    <a class="soc whatsapp" href="#" title="WhatsApp Community" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <button class="soc query" id="openQuery" title="Quick Query" aria-label="Quick Query"><i class="fa-regular fa-envelope"></i></button>
+  </div>
+
+  <!-- ========================================================
+       HEADER (Row 1: logo+heading, Row 2: nav)
+  ========================================================= -->
+  <header>
+  <div class="top-bar">
+    <img src="assets/logo.png" alt="Logo" />
+    <h1>Centre of Excellence — Hybrid & Electric Vehicles (KPRIET) </h1>
+
+    <!-- Hamburger Button -->
+    <button class="menu-toggle" aria-label="Toggle Menu">
+      ☰
+    </button>
+  </div>
+
+  <nav class="nav">
+    <ul>
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="courses.html" class="nav-link">Courses</a></li>
+      <li><a href="events.html" class="nav-link">Events</a></li>
+      <!-- <li><a href="gallery.html" class="nav-link">Gallery</a></li> -->
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+  <!-- ========================================================
+       HERO (Heading left, embedded video right)
+  ========================================================= -->
+  <section class="hero" id="top" role="banner">
+    <span class="orb one"></span><span class="orb two"></span>
+    <div class="container hero-inner">
+      <div class="observe">
+        <span class="eyebrow">India’s First IMI-Approved EV Centre</span>
+        <h2>Skill. Certify. Innovate — Powering the Future of <em>Hybrid & Electric Vehicles</em></h2>
+        <p class="mt-10">We bridge academia and industry with <strong>hands-on labs</strong>, <strong>global certifications</strong> and
+          project-based training on EV powertrains, batteries, safety and diagnostics — in partnership with Audi, ELGi, Lucas-Nuelle and more.</p>
+        <div class="hero-stats">
+          <span class="stat"><strong class="count" data-target="1200">0</strong>+ Learners</span>
+          <span class="stat"><strong class="count" data-target="25">0</strong> Modules</span>
+          <span class="stat"><strong class="count" data-target="14">0</strong> Partners</span>
+        </div>
+        <div class="cta">
+          <a class="btn btn-primary" href="#courses"><i class="fa-solid fa-graduation-cap"></i> Explore Courses</a>
+          <button class="btn btn-outline" id="openPopup"><i class="fa-regular fa-calendar-check"></i> Book a Visit</button>
+        </div>
+      </div>
+      <div class="hero-video float-y observe">
+        <video src="assests/IMG_4212.mp4" autoplay muted loop playsinline title="Lab Overview"></video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       AFFILIATION & PARTNERS
+  ========================================================= -->
+  <section class="affil section">
+    <div class="container">
+      <div class="affil-wrap observe">
+        <!-- <div class="affil-card">
+          <img src="" alt="Anna University Logo">
+          <div class="affil-text">
+            <h4>Affiliated with Anna University</h4>
+            <p class="muted">Academic rigor aligned with the renowned state technical university.</p>
+          </div>
+        </div> -->
+        <section class="partners">
+  <h2>Our Partnered Companies</h2>
+  <div class="partners-section">
+    <div class="partners-container">
+      <div class="partners-scroll">
+      <img class="partner-logo" src="assests/img__Lucas_nuelle_en-us.png" alt="Lucas Nulle">
+      <img class="partner-logo" src="assests/img_ATSEe_LGii.jpg" alt="ATS ELGI">
+      <img class="partner-logo" src="assests/img_legion.png" alt="Legion Brothers">
+      <img class="partner-logo" src="assests/img_JAHNVI MOTOR.png" alt="Audi Jahnvi Motors">
+      <img class="partner-logo" src="assests/img_IMI.png" alt="IMI Approved Center">
+      <img class="partner-logo" src="assests/img_ELGI.png" alt="ELGI">
+      <img class="partner-logo" src="assests/img_MT.png" alt="Modtech MT">
+      <img class="partner-logo" src="assests/img_bosch.webp" alt="Bosch">
+
+      <!-- duplicate set for continuous loop -->
+      <img class="partner-logo" src="assests/img__Lucas_nuelle_en-us.png" alt="Lucas Nulle">
+      <img class="partner-logo" src="assests/img_ATSEe_LGii.jpg" alt="ATS ELGI">
+      <img class="partner-logo" src="assests/img_legion.png" alt="Legion Brothers">
+      <img class="partner-logo" src="assests/img_JAHNVI MOTOR.png" alt="Audi Jahnvi Motors">
+      <img class="partner-logo" src="assests/img_IMI.png" alt="IMI Approved Center">
+      <img class="partner-logo" src="assests/img_ELGI.png" alt="ELGI">
+      <img class="partner-logo" src="assests/img_MT.png" alt="Modtech MT">
+      <img class="partner-logo" src="assests/img_bosch.webp" alt="Bosch">
+    </div>
+  </div>
+  </div>
+</section>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================
+       COURSES (Level 1, 2.1, 2.2, Skill, Workshops, Projects)
+  ========================================================= -->
+  <section id="courses" class="section courses">
+    <div class="container">
+      <span class="eyebrow observe">Programs & Pathways</span>
+      <h3 class="title observe">Courses & Certifications</h3>
+      <p class="kicker observe">IMI Level 1 • IMI Level 2 (2.1 & 2.2) • Skill Training • Industry Workshops • Entrepreneurship</p>
+
+      <div class="grid">
+        <!-- Level 1 -->
+        <article class="course observe">
+          <div class="flip">
+            <div class="front">
+              <img src="assests/img_level_1.JPG"alt ="IMI Level 1">
+              <span class="title">IMI Level 1 — EV Awareness</span>
+            </div>
+            <div class="back">
+              <span class="badge">Beginner</span>
+              <h4>Overview</h4>
+              <p>Safety, EV architectures, components overview, best practices. Foundation for further IMI pathways.</p>
+              <div class="mt-14">
+                <button class="btn btn-primary" onclick="openPopup()">Register</button>
+                <span class="chip">Duration: 20 hrs</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Level 2.1 -->
+        <article class="course observe">
+          <div class="flip">
+            <div class="front">
+              <img src="assests/img_level_2_1.JPG" alt="IMI Level 2.1">
+              <span class="title">IMI Level 2.1 — Hazard Management</span>
+            </div>
+            <div class="back">
+              <span class="badge">Intermediate</span>
+              <h4>Overview</h4>
+              <p>Safe isolation, high-voltage protocols, PPE, risk assessment, workshop practices and standards.</p>
+              <div class="mt-14">
+                <button class="btn btn-primary" onclick="openPopup()">Register</button>
+                <span class="chip">Duration: 24 hrs</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Level 2.2 -->
+        <article class="course observe">
+          <div class="flip">
+            <div class="front">
+              <img src="assests/img_level_2_2.JPG" alt="IMI Level 2.2">
+              <span class="title">IMI Level 2.2 — EV Maintenance</span>
+            </div>
+            <div class="back">
+              <span class="badge">Intermediate</span>
+              <h4>Overview</h4>
+              <p>Diagnostics, CAN tools, battery packs & BMS, inverters & motors, charging protocols and service.</p>
+              <div class="mt-14">
+                <button class="btn btn-primary" onclick="openPopup()">Register</button>
+                <span class="chip">Duration: 30 hrs</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Skill Training -->
+        <article class="course observe">
+          <div class="flip">
+            <div class="front">
+              <img src="" alt="Skill Training">
+              <span class="title">Skill Training — CAD / Painting / Reverse Engineering</span>
+            </div>
+            <div class="back">
+              <span class="badge">Hands-on</span>
+              <h4>Overview</h4>
+              <p>Short modules with practical deliverables. Teardown & assembly, CAD modelling, painting workflows.</p>
+              <div class="mt-14">
+                <button class="btn btn-primary" onclick="openPopup()">Register</button>
+                <span class="chip">2–5 days</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Workshops -->
+        <article class="course observe">
+          <div class="flip">
+            <div class="front">
+              <img src="" alt="Workshops">
+              <span class="title">Industry Workshops — Audi / Mercedes</span>
+            </div>
+            <div class="back">
+              <span class="badge">Industry</span>
+              <h4>Overview</h4>
+              <p>Cutaway models, demo vehicles and expert sessions to demonstrate real-world systems and diagnostics.</p>
+              <div class="mt-14">
+                <button class="btn btn-primary" onclick="openPopup()">Register</button>
+                <span class="chip">Weekend</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Projects & Entrepreneurship -->
+        <article class="course observe">
+          <div class="flip">
+            <div class="front">
+              <img src="assests/img_kpr.jpg" alt="Entrepreneurship">
+              <span class="title">Green Mobility Projects & Entrepreneurship</span>
+            </div>
+            <div class="back">
+              <span class="badge">Innovation</span>
+              <h4>Overview</h4>
+              <p>Mentoring for PoCs & startups in retrofitting, smart charging and clean mobility — with lab access.</p>
+              <div class="mt-14">
+                <button class="btn btn-primary" onclick="openPopup()">Register</button>
+                <span class="chip">Capstone</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="center mt-24">
+        <a class="btn btn-primary" href="#visit"><i class="fa-regular fa-calendar-check"></i> Book a Lab Tour</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       WHAT WE OFFER
+  ========================================================= -->
+  <section id="offers" class="section">
+    <div class="container">
+      <span class="eyebrow observe">Outcomes</span>
+      <h3 class="title observe">What We Offer</h3>
+      <p class="kicker observe">Valuable insights and deliverables aligned with IMI standards and industry needs.</p>
+
+      <div class="offer-grid">
+        <div class="offer observe"><span class="ribbon">IMI</span><i class="fa-solid fa-certificate"></i><h4>Global Certification</h4><p>IMI-aligned assessments with digital badges recognized by employers worldwide.</p></div>
+        <div class="offer observe" style="animation-delay:.1s"><i class="fa-solid fa-screwdriver-wrench"></i><h4>Hands-on Labs</h4><p>Cutaway engines, battery rigs, CAN tools and EV kits for real workshop skills.</p></div>
+        <div class="offer observe" style="animation-delay:.15s"><i class="fa-solid fa-microchip"></i><h4>Modern Toolchain</h4><p>Diagnostics, oscilloscopes, data loggers and CAD—industry-standard instruments.</p></div>
+        <div class="offer observe" style="animation-delay:.2s"><i class="fa-solid fa-users"></i><h4>Industry Mentors</h4><p>Sessions by OEM experts and trainers from partner organizations and startups.</p></div>
+        <div class="offer observe" style="animation-delay:.25s"><i class="fa-solid fa-leaf"></i><h4>Sustainable Focus</h4><p>Projects targeting green mobility, efficiency and safety in the EV ecosystem.</p></div>
+        <div class="offer observe" style="animation-delay:.3s"><i class="fa-solid fa-charging-station"></i><h4>Charging Bay</h4><p>AC/DC standards, connectors and safety protocols with practical demonstrations.</p></div>
+        <div class="offer observe" style="animation-delay:.35s"><i class="fa-solid fa-lightbulb"></i><h4>Innovation Support</h4><p>Incubation guidance for PoCs, retrofits and smart-charging solutions.</p></div>
+        <div class="offer observe" style="animation-delay:.4s"><i class="fa-solid fa-handshake-angle"></i><h4>Placements & Internships</h4><p>Pathways with partner companies and alumni network engagement.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       WHY HEV
+  ========================================================= -->
+  <section id="why" class="section">
+    <div class="container">
+      <div class="why grid">
+        <div class="card observe">
+          <span class="eyebrow">Why choose our centre?</span>
+          <h3 class="title" style="margin-bottom:6px">Why HEV @ KPRIET</h3>
+          <p class="mt-10">A unique combination of <strong>IMI approval</strong>, strong <strong>industry ecosystem</strong> and
+            comprehensive <strong>hands-on laboratories</strong> makes our centre the preferred hub for EV learning.</p>
+          <ul class="mt-14">
+            <li>Globally benchmarked curriculum — IMI Level 1 & 2 awards.</li>
+            <li>Live exhibits like the <em>AUDI Q5 engine cutaway</em> and demo vehicles.</li>
+            <li>Battery, BMS, inverter and motor benches with diagnostics workflow.</li>
+            <li>Short skill modules for employability: CAD, painting, teardown & assembly.</li>
+          </ul>
+          <div class="mt-18">
+            <a class="btn btn-primary" href="#highlights"><i class="fa-regular fa-newspaper"></i> See Highlights</a>
+          </div>
+        </div>
+        <div class="card float-y observe">
+          <img src="assests/img_ehv_infra.webp" alt="Why HEV">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       LABS & FACILITIES
+  ========================================================= -->
+  <section id="labs" class="section labs">
+    <div class="container">
+      <span class="eyebrow observe">Practice-first pedagogy</span>
+      <h3 class="title observe">Labs & Facilities</h3>
+      <p class="kicker observe">Purpose-built spaces to learn diagnostics, safety and system-level integration.</p>
+
+      <div class="lab-grid">
+        <article class="lab-card observe">
+          <img src="assests/img_rob_aut_lab.JPG" alt="Diagnostics Bench">
+          <div class="pad">
+            <h4>Robotics & Automation</h4>
+            <p>Oscilloscopes, multimeters and CAN tools for signal tracing & fault isolation.</p>
+          </div>
+        </article>
+        <article class="lab-card observe" style="animation-delay:.08s">
+          <img src="assests/img_home_lab.JPG" alt="Battery & BMS Lab">
+          <div class="pad">
+            <h4>Home Automation</h4>
+            <p>Cell testing, pack assembly demos, safety procedures and BMS parameterization.</p>
+          </div>
+        </article>
+        <article class="lab-card observe" style="animation-delay:.12s">
+          <img src="assests/img_industrial_lab.JPG" alt="Charging Bay">
+          <div class="pad">
+            <h4>Industrial Automation</h4>
+            <p>AC/DC standards, connectors, protocols and safe operation with live rigs.</p>
+          </div>
+        </article>
+        <article class="lab-card observe" style="animation-delay:.16s">
+          <img src="assests/img_uav_lab.JPG" alt="Powertrain Bench">
+          <div class="pad">
+            <h4>UAV Lab</h4>
+            <p>Motors, inverters and control systems — instrumentation & teardown practice.</p>
+          </div>
+        </article>
+        
+      </div>
+
+      <div class="metrics mt-24 observe">
+        <div class="metric-grid">
+          <div class="metric"><div class="num count" data-target="4">0</div><div>Dedicated Labs</div></div>
+          <div class="metric"><div class="num count" data-target="20">0</div><div>Major Rigs</div></div>
+          <div class="metric"><div class="num count" data-target="25">0</div><div>Instruments</div></div>
+          <div class="metric"><div class="num count" data-target="12">0</div><div>Industry Advisors</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       HIGHLIGHTS / TIMELINE
+  ========================================================= -->
+  <section id="highlights" class="section">
+    <div class="container">
+      <span class="eyebrow observe">Key Highlights</span>
+      <h3 class="title observe">News & Milestones</h3>
+      <div class="timeline observe">
+        <div class="t-item">
+          <h4>IMI Approval Secured</h4>
+          <p>Recognized as India’s first IMI-approved EV Centre, enabling global certification pathways.</p>
+        </div>
+        <div class="t-item">
+          <h4>Partner Showcase</h4>
+          <p>Demonstrations with Audi & Mercedes — live cutaways, safety drills and diagnostics workflow.</p>
+        </div>
+        <div class="t-item">
+          <h4>University Linkages</h4>
+          <p>Strong academic alignment with Anna University for credit-bearing modules.</p>
+        </div>
+        <div class="t-item">
+          <h4>Student Startups</h4>
+          <p>Incubation support for EV retrofitting and smart charging use-cases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       BOOK A VISIT
+  ========================================================= -->
+  <section id="visit" class="section">
+    <div class="container">
+      <div class="visit wrap">
+        <div class="card observe">
+          <span class="eyebrow">Campus experience</span>
+          <h3 class="title">Book a Visit — Hands-On Skill Educational Visit</h3>
+          <p class="mt-10">We welcome institutions and industry to experience our labs and training workflows.</p>
+          <ul class="points mt-14">
+            <li><strong>Guided Lab Tour:</strong> Diagnostics benches, battery lab, charging bay.</li>
+            <li><strong>Mini Workshop:</strong> Safety protocols, teardown demo or CAD activity.</li>
+          </ul>
+          <div class="mt-18">
+            <button class="btn btn-primary" id="openPopup2"><i class="fa-regular fa-calendar-check"></i> Book Visit</button>
+            <button class="btn btn-outline" id="openQuery2"><i class="fa-regular fa-message"></i> Quick Query</button>
+          </div>
+        </div>
+        <div class="observe">
+          <img class="float-y" src="assests/img_guest_lecture.jpg" alt="Lab Tour">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       REVIEWS (Prev/Next controlled)
+  ========================================================= -->
+  <section class="reviews">
+    <h3 class="title" style="color:#fff">Student Reviews</h3>
+    <p class="kicker" style="color:#d8efff">Honest words from learners who trained with us.</p>
+    <div class="review-container">
+      <button class="nav-btn prev" aria-label="Previous review">&#10094;</button>
+      <div class="review-wrapper">
+        <!-- 6 reviews -->
+        <div class="rev-card active">
+          <img src="https://via.placeholder.com/80" alt="Rahul M">
+          <div><h4 class="rev-name">Rahul M.</h4><p>"Real hands-on experience with EV powertrains and safety standards. The diagnostics bench was a game changer."</p></div>
+        </div>
+        <div class="rev-card">
+          <img src="https://via.placeholder.com/80" alt="Priya S">
+          <div><h4 class="rev-name">Priya S.</h4><p>"The industry partnerships and IMI certification made me confident for my career. Highly structured labs."</p></div>
+        </div>
+        <div class="rev-card">
+          <img src="https://via.placeholder.com/80" alt="Arun K">
+          <div><h4 class="rev-name">Arun K.</h4><p>"Loved the hands-on lab sessions and global-level training experience at KPRIET. Strong mentor support."</p></div>
+        </div>
+        <div class="rev-card">
+          <img src="https://via.placeholder.com/80" alt="Sahana P">
+          <div><h4 class="rev-name">Sahana P.</h4><p>"Charging bay demos clarified so many practical doubts. The safety drills were top notch."</p></div>
+        </div>
+        <div class="rev-card">
+          <img src="https://via.placeholder.com/80" alt="Vignesh R">
+          <div><h4 class="rev-name">Vignesh R.</h4><p>"I turned my capstone into a PoC for a retrofit kit with support from the centre."</p></div>
+        </div>
+        <div class="rev-card">
+          <img src="https://via.placeholder.com/80" alt="Anita D">
+          <div><h4 class="rev-name">Anita D.</h4><p>"Clear, structured modules from Level 1 to Level 2.1/2.2 — excellent pathway."</p></div>
+        </div>
+      </div>
+      <button class="nav-btn next" aria-label="Next review">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       FAQ (3–5+)
+  ========================================================= -->
+  <section id="faq" class="section">
+    <div class="container">
+      <span class="eyebrow observe">Have questions?</span>
+      <h3 class="title observe">Frequently Asked Questions</h3>
+      <p class="kicker observe">Click a question to reveal the answer.</p>
+
+      <div class="faq">
+        <div class="qa observe">
+          <div class="q"><strong>What is IMI and why does it matter?</strong><i class="fa-solid fa-plus icon"></i></div>
+          <div class="a">IMI (Institute of the Motor Industry, UK) provides globally recognized automotive qualifications. Our IMI-approved centre ensures your learning and assessment meet international standards.</div>
+        </div>
+        <div class="qa observe">
+          <div class="q"><strong>Do I need prior EV experience?</strong><i class="fa-solid fa-plus icon"></i></div>
+          <div class="a">No. Start with IMI Level 1 for fundamentals and safety. Level 2 tracks build diagnostics and service competence.</div>
+        </div>
+        <div class="qa observe">
+          <div class="q"><strong>Are there industry workshops?</strong><i class="fa-solid fa-plus icon"></i></div>
+          <div class="a">Yes. We host sessions with partners like Audi and run exhibits such as engine cutaways, charging demos and safety drills.</div>
+        </div>
+        <div class="qa observe">
+          <div class="q"><strong>How do I register?</strong><i class="fa-solid fa-plus icon"></i></div>
+          <div class="a">Use the <em>Book a Visit</em> button or any <em>Register</em> button on this page. A popup will open with the application form.</div>
+        </div>
+        <div class="qa observe">
+          <div class="q"><strong>Do you provide placement support?</strong><i class="fa-solid fa-plus icon"></i></div>
+          <div class="a">We connect qualified learners to internships and job opportunities through our partner network and alumni.</div>
+        </div>
+        <div class="qa observe">
+          <div class="q"><strong>Can institutions arrange custom visits?</strong><i class="fa-solid fa-plus icon"></i></div>
+          <div class="a">Yes, we arrange tailored lab tours and mini-workshops for faculty, students and industry teams.</div>
+        </div>
+        <div class="qa observe">
+          <div class="q"><strong>Is safety gear provided?</strong><i class="fa-solid fa-plus icon"></i></div>
+          <div class="a">We provide standard PPE for training sessions; you will also learn proper safety protocols and handling.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       NEWSLETTER STRIP
+  ========================================================= -->
+  <section class="newsletter">
+    <div class="container nl-wrap">
+      <div>
+        <h3 class="title" style="color:#cfe4ff">Stay in the Loop</h3>
+        <p class="muted" style="color:#b8cfff">Get invites for workshops, lab demos and certifications.</p>
+      </div>
+      <form class="nl-form" onsubmit="event.preventDefault();subscribe();">
+        <input type="email" id="nlEmail" placeholder="Your email address" required>
+        <button type="submit"><i class="fa-regular fa-bell"></i> Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       FOOTER
+  ========================================================= -->
+  <footer id="contact">
+    <div class="container foot">
+      <div>
+        <h5>Centre of Excellence — Hybrid & Electric Vehicles</h5>
+        <p class="mt-6">KPR Institute of Engineering and Technology (KPRIET)</p>
+        <p class="muted mt-6">Email: <a href="mailto:coehev@kpriet.ac.in">coehev@kpriet.ac.in</a></p>
+        <p class="muted">Phone: +91 422 263 5600 (Ext. 675)</p>
+        <p class="muted mt-6">Address: KPRIET, Coimbatore, Tamil Nadu, India</p>
+      </div>
+      <div>
+        <h5>Quick Links</h5>
+        <p class="mt-6"><a href="#courses">Courses</a></p>
+        <p><a href="#offers">What We Offer</a></p>
+        <p><a href="#visit">Book a Visit</a></p>
+        <p><a href="about.html">About</a></p>
+      </div>
+      <div>
+        <h5>Policies</h5>
+        <p class="mt-6"><a href="#">Privacy Policy</a></p>
+        <p><a href="#">Terms of Use</a></p>
+        <p><a href="#">Accessibility</a></p>
+      </div>
+    </div>
+    <div class="container copyright">© 2025 COE — Hybrid & Electric Vehicles, KPRIET</div>
+  </footer>
+
+  <!-- ========================================================
+       POPUPS (Register + Quick Query)
+  ========================================================= -->
+  <div class="popup" id="popupForm" aria-modal="true" role="dialog">
+    <div class="popup-content">
+      <span class="close-btn" id="closePopup" aria-label="Close"><i class="fa-solid fa-xmark"></i></span>
+      <iframe class="form-frame" src="registration-form.html" title="Register / Apply"></iframe>
+    </div>
+  </div>
+
+  <div class="popup" id="popupQuery" aria-modal="true" role="dialog">
+    <div class="popup-content">
+      <span class="close-btn" id="closeQuery" aria-label="Close"><i class="fa-solid fa-xmark"></i></span>
+      <iframe class="form-frame" srcdoc='<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><style>body{font-family:Inter,Arial,sans-serif;margin:0;background:#fff} .box{padding:14px} input,textarea,select{width:100%;margin:8px 0;padding:10px;border:1.4px solid #d0d7e2;border-radius:8px;outline:none} input:focus,textarea:focus,select:focus{border-color:#0066cc;box-shadow:0 0 6px rgba(0,102,204,.25)} button{width:100%;padding:12px 16px;border:0;border-radius:10px;background:#f4a100;color:#fff;font-weight:800;cursor:pointer} button:hover{background:#20b15a}</style></head><body><div class="box"><h3>Quick Query</h3><input placeholder="Full Name"/><input type="email" placeholder="Email"/><input placeholder="Phone"/><select><option>IMI Level 1</option><option>IMI Level 2.1</option><option>IMI Level 2.2</option><option>Skill Program</option></select><textarea placeholder="Your Question" rows="5"></textarea><button>Send</button></div></body></html>' title="Quick Query"></iframe>
+    </div>
+  </div>
+  <!-- Chat bot-->
+   <iframe
+    id="chatbot-frame"
+    src="https://www.chatbase.co/chatbot-iframe/qxOSEpMS74xZayMhA7yBU"
+    frameborder="0">
+  </iframe>
+
+
+  <!-- ========================================================
+       BACK TO TOP
+  ========================================================= -->
+  <button class="back-to-top" id="toTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <!-- ========================================================
+       SCRIPTS (Inline, no external deps)
+  ========================================================= -->
+  <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+  const chatbotFrame = document.getElementById("chatbot-frame");
+  const toggleBtn = document.createElement("button");
+  toggleBtn.id = "chatbot-toggle";
+  toggleBtn.textContent = "💬 Chat";
+
+  document.body.appendChild(toggleBtn);
+
+  toggleBtn.addEventListener("click", () => {
+    chatbotFrame.classList.toggle("active");
+  });
+});
+
+    // ----------------------------------------------
+    // NAV: mobile menu
+    // ----------------------------------------------
+     document.addEventListener("DOMContentLoaded", () => {
+    const links = document.querySelectorAll(".nav-link");
+    const current = window.location.pathname.split("/").pop();
+    const toggleBtn = document.querySelector(".menu-toggle");
+    const navList = document.querySelector(".nav ul");
+
+    // Active link highlight
+    links.forEach(link => {
+      if (link.getAttribute("href") === current) {
+        link.classList.add("active");
+      }
+    });
+
+    // Toggle mobile menu
+    toggleBtn.addEventListener("click", () => {
+      navList.classList.toggle("open");
+      toggleBtn.textContent = navList.classList.contains("open") ? "✖" : "☰";
+    });
+  });
+
+    // ----------------------------------------------
+    // SOCIAL: quick query + popup register
+    // ----------------------------------------------
+    const popupForm = document.getElementById('popupForm');
+    const popupQuery = document.getElementById('popupQuery');
+    const openPopup = () => popupForm.classList.add('open');
+    const closePopup = () => popupForm.classList.remove('open');
+    const openQuery  = () => popupQuery.classList.add('open');
+    const closeQuery = () => popupQuery.classList.remove('open');
+    document.getElementById('openPopup')?.addEventListener('click', openPopup);
+    document.getElementById('openPopup2')?.addEventListener('click', openPopup);
+    document.getElementById('closePopup')?.addEventListener('click', closePopup);
+    document.getElementById('openQuery')?.addEventListener('click', openQuery);
+    document.getElementById('openQuery2')?.addEventListener('click', openQuery);
+    document.getElementById('closeQuery')?.addEventListener('click', closeQuery);
+    popupForm.addEventListener('click', (e)=>{ if(e.target === popupForm) closePopup(); });
+    popupQuery.addEventListener('click', (e)=>{ if(e.target === popupQuery) closeQuery(); });
+
+    // ----------------------------------------------
+    // OBSERVER: reveal on scroll (duration ~2–3s)
+    // ----------------------------------------------
+    const obs = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+          if(entry.target.classList.contains('lab-card')) entry.target.classList.add('reveal');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.15});
+    document.querySelectorAll('.observe').forEach(el=>obs.observe(el));
+    document.querySelectorAll('.lab-card').forEach(el=>obs.observe(el));
+
+    // ----------------------------------------------
+    // COUNTERS (hero & labs metrics)
+    // ----------------------------------------------
+    const counters = document.querySelectorAll('.count');
+    const counterObs = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const el = entry.target;
+          const target = +el.dataset.target;
+          let start = 0;
+          const inc = Math.ceil(target / 60); // ~1s
+          const tick = () => {
+            start += inc;
+            if(start >= target){ el.textContent = target; }
+            else { el.textContent = start; requestAnimationFrame(tick); }
+          };
+          requestAnimationFrame(tick);
+          counterObs.unobserve(el);
+        }
+      })
+    }, {threshold:.5});
+    counters.forEach(c=>counterObs.observe(c));
+
+    // ----------------------------------------------
+    // REVIEWS: previous / next (disable ends)
+    // ----------------------------------------------
+    let currentReview = 0;
+    const reviewCards = document.querySelectorAll(".rev-card");
+    const prevBtn = document.querySelector(".nav-btn.prev");
+    const nextBtn = document.querySelector(".nav-btn.next");
+
+    function showReview(index) {
+      reviewCards.forEach((card, i) => {
+        card.classList.toggle("active", i === index);
+      });
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === reviewCards.length - 1;
+    }
+    function nextReview() {
+      if (currentReview < reviewCards.length - 1) {
+        currentReview++;
+        showReview(currentReview);
+      }
+    }
+    function prevReview() {
+      if (currentReview > 0) {
+        currentReview--;
+        showReview(currentReview);
+      }
+    }
+    prevBtn.addEventListener('click', prevReview);
+    nextBtn.addEventListener('click', nextReview);
+    showReview(currentReview);
+
+    // ----------------------------------------------
+    // FAQ: accordion
+    // ----------------------------------------------
+    document.querySelectorAll('.qa .q').forEach(q=>{
+      q.addEventListener('click', ()=>{
+        const qa = q.parentElement;
+        const open = qa.classList.contains('open');
+        document.querySelectorAll('.qa').forEach(x=>x.classList.remove('open'));
+        if(!open) qa.classList.add('open');
+      });
+    });
+
+    // ----------------------------------------------
+    // Newsletter: fake subscribe
+    // ----------------------------------------------
+    function subscribe(){
+      const input = document.getElementById('nlEmail');
+      if(!input.value) return;
+      alert('Thanks! We will keep you posted at ' + input.value);
+      input.value = '';
+    }
+    window.subscribe = subscribe;
+
+    // ----------------------------------------------
+    // Back-to-top
+    // ----------------------------------------------
+    const toTop = document.getElementById('toTop');
+    const topObs = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ toTop.classList.remove('show'); }
+        else { toTop.classList.add('show'); }
+      })
+    },{rootMargin:'-120px 0px 0px 0px'});
+    topObs.observe(document.querySelector('#top') || document.body);
+    toTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+    // ----------------------------------------------
+    // Accessibility small touches
+    // ----------------------------------------------
+    document.addEventListener('keydown',(e)=>{
+      if(e.key === 'Escape'){
+        closePopup(); closeQuery();
+        navLinks.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>

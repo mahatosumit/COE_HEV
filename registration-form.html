@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inquiry Form</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Segoe UI", sans-serif; }
+    body { background: #f5f7fa; }
+
+    .form-section { display: flex; justify-content: center; align-items: center; padding: 50px 20px; }
+    .form-container { background: #fff; border-radius: 20px; width: 65%; min-height: 70vh; padding: 40px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15); position: relative; animation: fadeIn 0.6s ease; }
+    .form-container::before, .form-container::after {
+      content: ""; position: absolute; border-radius: 50%; background: rgba(255,106,0,0.08); z-index: 0;
+    }
+    .form-container::before { width: 120px; height: 120px; top: -40px; left: -40px; }
+    .form-container::after { width: 180px; height: 180px; bottom: -60px; right: -60px; background: rgba(238,9,121,0.08); }
+    .form-container h2 { text-align: center; color: #ff6a00; font-size: 26px; margin-bottom: 25px; position: relative; z-index: 1; }
+    .form-container h2::after { content: ""; width: 60px; height: 3px; background: linear-gradient(90deg,#ff6a00,#ee0979); display: block; margin: 8px auto 0; border-radius: 2px; }
+    form { position: relative; z-index: 1; }
+    .form-row { display: flex; gap: 15px; margin-bottom: 18px; }
+    .form-group { flex: 1; display: flex; flex-direction: column; }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 14px 16px; border-radius: 25px; border: 1px solid #ddd; font-size: 14px; transition: 0.3s; outline: none; background: #fafafa;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: #ff6a00; box-shadow: 0 0 10px rgba(255,106,0,0.25); background: #fff; transform: scale(1.01);
+    }
+    textarea { resize: none; height: 100px; border-radius: 15px !important; }
+    button[type="submit"] {
+      margin-top: 20px; width: 100%; padding: 15px; border-radius: 30px; border: none;
+      background: linear-gradient(90deg, #ff6a00, #ee0979); color: white; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;
+    }
+    button[type="submit"]:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0px 8px 25px rgba(255,106,0,0.4); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0);} }
+    @media (max-width: 768px) {
+      .form-container { width: 90%; min-height: 85vh; padding: 25px; }
+      .form-row { flex-direction: column; gap: 12px; }
+      .form-container h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="form-section">
+  <div class="form-container">
+    <h2>Inquiry Form</h2>
+
+    <form id="registrationForm" action="https://script.google.com/macros/s/AKfycbx-WtMKZHF6I7RIBLc9qpDhY5AGN8NCmtCQHOBe16zTTrrLVXu2Xm1HHE1UpXXfSBn9vw/exec" method="POST" autocomplete="off">
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" name="fullname" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+          <input type="tel" name="contact" placeholder="Contact Number" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <select name="qualification" required>
+            <option value="">Qualification</option>
+            <option value="UG">UG</option>
+            <option value="PG">PG</option>
+            <option value="Diploma">Diploma</option>
+            <option value="PhD">PhD</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select name="course" required>
+            <option value="">Interested Course</option>
+            <option value="EV Basics">EV Basics</option>
+            <option value="Hybrid Systems">Hybrid Systems</option>
+            <option value="Battery Management">Battery Management</option>
+            <option value="Advanced IMI">Advanced IMI</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <textarea name="query" placeholder="Any additional Information/Query" required></textarea>
+        </div>
+      </div>
+
+      <button type="submit" id="submitBtn">Submit Application →</button>
+    </form>
+  </div>
+</section>
+<script>
+(function () {
+  const form = document.getElementById("registrationForm");
+  const submitBtn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    const originalText = submitBtn.innerText;
+    submitBtn.innerText = "Submitting...";
+
+    try {
+      const formData = new FormData(form); // ✅ send as form-data
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("Network response was not ok");
+
+      alert("✅ Your details are saved!");
+      form.reset(); // ✅ clears form
+
+    } catch (err) {
+      console.error(err);
+      alert("❌ Error saving details. Try again.");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerText = originalText;
+    }
+  });
+})();
+</script>
+
+
+
+</body>
+</html>
